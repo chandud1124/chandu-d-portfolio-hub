@@ -13,43 +13,43 @@ const Skills = () => {
       icon: Globe,
       title: "Web Technologies",
       skills: ["HTML5", "CSS3", "XML", "JavaScript", "React.js", "Node.js"],
-      color: "text-blue-600",
-      bgColor: "bg-blue-50"
+      color: "text-primary",
+      bgColor: "bg-primary/10"
     },
     {
       icon: Code,
       title: "Programming Languages",
       skills: ["Java", "C", "Python"],
-      color: "text-green-600",
-      bgColor: "bg-green-50"
+      color: "text-accent",
+      bgColor: "bg-accent/10"
     },
     {
       icon: Database,
       title: "Databases",
       skills: ["MySQL", "MongoDB"],
-      color: "text-purple-600",
-      bgColor: "bg-purple-50"
+      color: "text-primary",
+      bgColor: "bg-primary/10"
     },
     {
       icon: Cloud,
       title: "Cloud Platforms",
       skills: ["AWS", "Azure", "GCP"],
-      color: "text-orange-600",
-      bgColor: "bg-orange-50"
+      color: "text-accent",
+      bgColor: "bg-accent/10"
     },
     {
       icon: GitBranch,
       title: "Version Control",
       skills: ["Git", "GitHub"],
-      color: "text-gray-600",
-      bgColor: "bg-gray-50"
+      color: "text-muted-foreground",
+      bgColor: "bg-muted"
     },
     {
       icon: Palette,
       title: "UI/UX Design",
       skills: ["Figma", "WIX"],
-      color: "text-pink-600",
-      bgColor: "bg-pink-50"
+      color: "text-primary",
+      bgColor: "bg-primary/10"
     }
   ];
 

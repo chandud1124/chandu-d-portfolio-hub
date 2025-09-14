@@ -104,11 +104,20 @@ const Projects = () => {
 
               {/* Action Buttons */}
               <div className="flex gap-3">
-                <Button variant="outline" size="sm" className="flex-1">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="flex-1"
+                  onClick={() => window.open('https://github.com/chandu-d', '_blank')}
+                >
                   <Github className="w-4 h-4 mr-2" />
                   View Code
                 </Button>
-                <Button size="sm" className="flex-1">
+                <Button 
+                  size="sm" 
+                  className="flex-1"
+                  onClick={() => window.open('#contact', '_self')}
+                >
                   <ExternalLink className="w-4 h-4 mr-2" />
                   Live Demo
                 </Button>

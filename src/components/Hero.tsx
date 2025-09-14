@@ -30,15 +30,39 @@ const Hero = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Button className="btn-hero">
+              <Button 
+                className="btn-hero"
+                onClick={() => {
+                  const element = document.querySelector('#contact');
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+              >
                 <Mail className="w-5 h-5 mr-2" />
                 Get In Touch
               </Button>
-              <Button variant="outline" className="btn-outline-hero">
+              <Button 
+                variant="outline" 
+                className="btn-outline-hero"
+                onClick={() => {
+                  const link = document.createElement('a');
+                  link.href = '/resume.pdf';
+                  link.download = 'Chandu_D_Resume.pdf';
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+                }}
+              >
                 <Download className="w-5 h-5 mr-2" />
                 Download Resume
               </Button>
-              <Button variant="ghost" size="lg" className="text-primary hover:text-primary-dark">
+              <Button 
+                variant="ghost" 
+                size="lg" 
+                className="text-primary hover:text-primary-dark"
+                onClick={() => window.open('https://linkedin.com/in/chandu-d', '_blank')}
+              >
                 <Linkedin className="w-5 h-5 mr-2" />
                 LinkedIn
               </Button>
