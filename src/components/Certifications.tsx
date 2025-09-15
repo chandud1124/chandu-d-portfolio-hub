@@ -1,4 +1,10 @@
-import { Award, BookOpen, Cloud, Brain, Users, Zap } from "lucide-react";
+import { Award, BookOpen, Cloud, Brain, Users, Zap, Eye } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import dsaCert from "@/assets/certificates/dsa-certificate.jpg";
+import cloudCert from "@/assets/certificates/cloud-certificate.jpg";
+import aimlCert from "@/assets/certificates/aiml-certificate.jpg";
+import systemDesignCert from "@/assets/certificates/system-design-certificate.jpg";
+import communicationCert from "@/assets/certificates/communication-certificate.jpg";
 
 const Certifications = () => {
   const certifications = [
@@ -10,7 +16,8 @@ const Certifications = () => {
       description: "Comprehensive understanding of fundamental programming concepts and algorithmic thinking",
       skills: ["Problem Solving", "Algorithm Design", "Time Complexity", "Space Optimization"],
       color: "from-blue-500 to-blue-600",
-      bgColor: "bg-blue-50"
+      bgColor: "bg-blue-50",
+      certificate: dsaCert
     },
     {
       icon: Cloud,
@@ -20,7 +27,8 @@ const Certifications = () => {
       description: "Multi-cloud expertise covering major cloud platforms and services",
       skills: ["AWS Services", "Azure Cloud", "Google Cloud", "DevOps", "Infrastructure"],
       color: "from-orange-500 to-orange-600",
-      bgColor: "bg-orange-50"
+      bgColor: "bg-orange-50",
+      certificate: cloudCert
     },
     {
       icon: Brain,
@@ -30,7 +38,8 @@ const Certifications = () => {
       description: "Machine learning foundations with hands-on experience in model development",
       skills: ["Python", "Machine Learning", "Data Analysis", "Model Training", "AI Ethics"],
       color: "from-purple-500 to-purple-600",
-      bgColor: "bg-purple-50"
+      bgColor: "bg-purple-50",
+      certificate: aimlCert
     },
     {
       icon: Zap,
@@ -40,7 +49,8 @@ const Certifications = () => {
       description: "Large-scale system design principles and architectural patterns",
       skills: ["Scalability", "Load Balancing", "Database Design", "Microservices", "Performance"],
       color: "from-green-500 to-green-600",
-      bgColor: "bg-green-50"
+      bgColor: "bg-green-50",
+      certificate: systemDesignCert
     },
     {
       icon: Users,
@@ -50,7 +60,8 @@ const Certifications = () => {
       description: "Professional communication skills for technical and non-technical audiences",
       skills: ["Technical Writing", "Presentation", "Team Collaboration", "Documentation", "Leadership"],
       color: "from-pink-500 to-pink-600",
-      bgColor: "bg-pink-50"
+      bgColor: "bg-pink-50",
+      certificate: communicationCert
     }
   ];
 
@@ -67,11 +78,12 @@ const Certifications = () => {
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {certifications.map((cert, index) => (
-            <div 
-              key={cert.title}
-              className="professional-card animate-scale-in group"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
+            <Dialog key={cert.title}>
+              <DialogTrigger asChild>
+                <div 
+                  className="professional-card animate-scale-in group cursor-pointer hover:shadow-lg transition-all duration-300"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
               {/* Header */}
               <div className="flex items-start gap-4 mb-6">
                 <div className={`w-14 h-14 ${cert.bgColor} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
@@ -104,14 +116,38 @@ const Certifications = () => {
                 </div>
               </div>
               
-              {/* Verification Badge */}
-              <div className="mt-6 pt-4 border-t border-border">
-                <div className="flex items-center gap-2">
-                  <Award className="w-4 h-4 text-primary" />
-                  <span className="text-xs font-medium text-primary">Certified</span>
+                  {/* Verification Badge */}
+                  <div className="mt-6 pt-4 border-t border-border">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Award className="w-4 h-4 text-primary" />
+                        <span className="text-xs font-medium text-primary">Certified</span>
+                      </div>
+                      <div className="flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors">
+                        <Eye className="w-3 h-3" />
+                        <span>View Certificate</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </DialogTrigger>
+              
+              <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden">
+                <DialogHeader>
+                  <DialogTitle className="flex items-center gap-3">
+                    <cert.icon className="w-6 h-6 text-primary" />
+                    {cert.title}
+                  </DialogTitle>
+                </DialogHeader>
+                <div className="mt-4">
+                  <img 
+                    src={cert.certificate} 
+                    alt={`${cert.title} Certificate`}
+                    className="w-full h-auto rounded-lg shadow-lg"
+                  />
+                </div>
+              </DialogContent>
+            </Dialog>
           ))}
         </div>
         
