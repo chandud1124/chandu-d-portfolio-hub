@@ -1,85 +1,167 @@
 import { Mail, Linkedin, Download, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import heroImage from "@/assets/chandu-hero.jpg";
 
 const Hero = () => {
+  const [displayText, setDisplayText] = useState("");
+  const fullText = "MCA Student | Aspiring Software Engineer";
+  
+  useEffect(() => {
+    let currentIndex = 0;
+    const interval = setInterval(() => {
+      if (currentIndex <= fullText.length) {
+        setDisplayText(fullText.slice(0, currentIndex));
+        currentIndex++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 50);
+    
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <section className="section-container bg-gradient-to-br from-background to-secondary">
+    <section className="section-container relative overflow-hidden">
+      {/* Animated mesh gradient background */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-gradient-to-br from-background via-primary/5 to-secondary opacity-80" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+      </div>
+      
       <div className="max-container">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
           {/* Content */}
-          <div className="flex-1 text-center lg:text-left animate-slide-up">
-            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
+          <motion.div 
+            className="flex-1 text-center lg:text-left"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <motion.div 
+              className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6 backdrop-blur-sm border border-primary/20"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2 }}
+            >
               <MapPin className="w-4 h-4" />
               Bengaluru, Karnataka
-            </div>
+            </motion.div>
             
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            <motion.h1 
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
               Hi, I'm{" "}
-              <span className="gradient-text">Chandu D</span>
-            </h1>
+              <span className="gradient-text bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary-light animate-gradient">
+                Chandu D
+              </span>
+            </motion.h1>
             
-            <div className="text-xl sm:text-2xl text-muted-foreground mb-6 font-medium">
-              MCA Student | Aspiring Software Engineer
-            </div>
+            <motion.div 
+              className="text-xl sm:text-2xl text-muted-foreground mb-6 font-medium h-8"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+            >
+              {displayText}<span className="animate-pulse">|</span>
+            </motion.div>
             
-            <p className="text-lg text-muted-foreground mb-8 max-w-2xl">
+            <motion.p 
+              className="text-lg text-muted-foreground mb-8 max-w-2xl"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.7 }}
+            >
               Cloud & IoT Enthusiast passionate about building innovative solutions. 
               Currently pursuing Master's in Computer Applications with hands-on experience 
               in cloud platforms and modern web technologies.
-            </p>
+            </motion.p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Button 
-                className="btn-hero"
-                onClick={() => {
-                  const element = document.querySelector('#contact');
-                  if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }}
-              >
-                <Mail className="w-5 h-5 mr-2" />
-                Get In Touch
-              </Button>
-              <Button 
-                variant="outline" 
-                className="btn-outline-hero"
-                onClick={() => {
-                  const link = document.createElement('a');
-                  link.href = '/resume.pdf';
-                  link.download = 'Chandu_D_Resume.pdf';
-                  document.body.appendChild(link);
-                  link.click();
-                  document.body.removeChild(link);
-                }}
-              >
-                <Download className="w-5 h-5 mr-2" />
-                Download Resume
-              </Button>
-              <Button 
-                variant="ghost" 
-                size="lg" 
-                className="text-primary hover:text-primary-dark"
-                onClick={() => window.open('https://linkedin.com/in/chandu-d', '_blank')}
-              >
-                <Linkedin className="w-5 h-5 mr-2" />
-                LinkedIn
-              </Button>
-            </div>
-          </div>
+            <motion.div 
+              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.9 }}
+            >
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button 
+                  className="btn-hero group relative overflow-hidden"
+                  onClick={() => {
+                    const element = document.querySelector('#contact');
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
+                >
+                  <span className="relative z-10 flex items-center">
+                    <Mail className="w-5 h-5 mr-2" />
+                    Get In Touch
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary-light to-accent opacity-0 group-hover:opacity-100 transition-opacity" />
+                </Button>
+              </motion.div>
+              
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button 
+                  variant="outline" 
+                  className="btn-outline-hero group"
+                  onClick={() => {
+                    const link = document.createElement('a');
+                    link.href = '/resume.pdf';
+                    link.download = 'Chandu_D_Resume.pdf';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                  }}
+                >
+                  <Download className="w-5 h-5 mr-2 group-hover:animate-bounce" />
+                  Download Resume
+                </Button>
+              </motion.div>
+              
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button 
+                  variant="ghost" 
+                  size="lg" 
+                  className="text-primary hover:text-primary-dark hover:bg-primary/10"
+                  onClick={() => window.open('https://linkedin.com/in/chandu-d', '_blank')}
+                >
+                  <Linkedin className="w-5 h-5 mr-2" />
+                  LinkedIn
+                </Button>
+              </motion.div>
+            </motion.div>
+          </motion.div>
           
-          {/* Image */}
-          <div className="flex-shrink-0 animate-scale-in">
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full blur-2xl scale-110"></div>
-              <img
+          {/* Image with 3D effect */}
+          <motion.div 
+            className="flex-shrink-0"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            <motion.div 
+              className="relative group"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-accent/30 rounded-full blur-3xl scale-110 group-hover:scale-125 transition-transform duration-500"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-primary-light/20 to-accent/20 rounded-full blur-2xl animate-pulse"></div>
+              <motion.img
                 src={heroImage}
                 alt="Chandu D - Professional Portrait"
-                className="relative w-80 h-80 lg:w-96 lg:h-96 object-cover rounded-full border-8 border-card shadow-2xl"
+                className="relative w-80 h-80 lg:w-96 lg:h-96 object-cover rounded-full border-8 border-card shadow-2xl ring-4 ring-primary/20 group-hover:ring-primary/40 transition-all duration-300"
+                whileHover={{ 
+                  boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+                }}
               />
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </section>
