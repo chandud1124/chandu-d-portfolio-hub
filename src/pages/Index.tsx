@@ -1,31 +1,55 @@
-import Navigation from "@/components/Navigation";
-import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Skills from "@/components/Skills";
-import Experience from "@/components/Experience";
-import Projects from "@/components/Projects";
-import Certifications from "@/components/Certifications";
-import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
-import CustomCursor from "@/components/CustomCursor";
-import ParticlesBackground from "@/components/ParticlesBackground";
+import { Suspense } from 'react';
+import {
+  Navigation,
+  Hero,
+  About,
+  Skills,
+  Experience,
+  Projects,
+  Certifications,
+  Contact,
+  Footer,
+  ParticlesBackground,
+  HeroSkeleton,
+  SectionSkeleton,
+  SkillsSkeleton
+} from '@/components/lazy-components';
 
 const Index = () => {
   return (
     <div className="min-h-screen relative">
-      <CustomCursor />
-      <ParticlesBackground />
-      <Navigation />
+      <Suspense fallback={<div className="fixed inset-0 bg-background flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div></div>}>
+        <ParticlesBackground />
+      </Suspense>
+      <Suspense fallback={<div />}>
+        <Navigation />
+      </Suspense>
       <main>
-        <Hero />
-        <About />
-        <Skills />
-        <Experience />
-        <Projects />
-        <Certifications />
-        <Contact />
+        <Suspense fallback={<HeroSkeleton />}>
+          <Hero />
+        </Suspense>
+        <Suspense fallback={<SectionSkeleton title="About" />}>
+          <About />
+        </Suspense>
+        <Suspense fallback={<SkillsSkeleton />}>
+          <Skills />
+        </Suspense>
+        <Suspense fallback={<SectionSkeleton title="Experience" />}>
+          <Experience />
+        </Suspense>
+        <Suspense fallback={<SectionSkeleton title="Projects" />}>
+          <Projects />
+        </Suspense>
+        <Suspense fallback={<SectionSkeleton title="Certifications" />}>
+          <Certifications />
+        </Suspense>
+        <Suspense fallback={<SectionSkeleton title="Contact" />}>
+          <Contact />
+        </Suspense>
       </main>
-      <Footer />
+      <Suspense fallback={<div />}>
+        <Footer />
+      </Suspense>
     </div>
   );
 };

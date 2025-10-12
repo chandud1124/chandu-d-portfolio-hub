@@ -12,7 +12,7 @@ const Experience = () => {
       period: "Feb 2025 - May 2025",
       location: "Remote",
       type: "Internship",
-      description: "Application deployment with AWS EC2, S3, Lambda services. Gained hands-on experience with cloud infrastructure and serverless architecture.",
+      description: "Led application deployment and infrastructure management using AWS EC2, S3, and Lambda services. Architected and implemented serverless solutions, optimizing performance and reducing operational costs through strategic cloud resource utilization.",
       technologies: ["AWS EC2", "S3", "Lambda", "Cloud Architecture"],
       current: true
     },
@@ -22,7 +22,7 @@ const Experience = () => {
       period: "Sep 2024 - Dec 2024",
       location: "Remote",
       type: "Internship",
-      description: "Advanced AWS, Azure, and GCP deployments. Service management and optimization across multiple cloud platforms.",
+      description: "Managed multi-cloud deployments across AWS, Azure, and GCP platforms. Implemented DevOps best practices, automated deployment pipelines, and optimized cloud resource allocation to enhance system performance and reduce infrastructure costs.",
       technologies: ["AWS", "Azure", "GCP", "Cloud Services", "DevOps"],
       current: false
     },
@@ -32,7 +32,7 @@ const Experience = () => {
       period: "Jun 2024 - Sep 2024",
       location: "Remote", 
       type: "Internship",
-      description: "Data preprocessing and machine learning model development. Worked on various AI/ML projects and gained experience in data science workflows.",
+      description: "Developed and deployed machine learning models using Python, implementing advanced data preprocessing techniques and model optimization strategies. Collaborated on AI-driven projects, delivering actionable insights through comprehensive data analysis and predictive modeling.",
       technologies: ["Python", "Machine Learning", "Data Preprocessing", "Model Building"],
       current: false
     }
@@ -70,8 +70,12 @@ const Experience = () => {
               initial={{ opacity: 0, y: -20 }}
               animate={isVisible ? { opacity: 1, y: 0 } : {}}
             >
-              <h2 className="text-3xl lg:text-4xl font-bold mb-6">Work Experience</h2>
-              <div className="w-20 h-1 bg-gradient-to-r from-primary to-primary-light rounded-full"></div>
+              <h2 className="text-3xl lg:text-4xl font-bold mb-6">Professional Experience</h2>
+              <div className="w-20 h-1 bg-gradient-to-r from-primary to-primary-light rounded-full mx-auto"></div>
+              <p className="text-lg text-muted-foreground mt-6 max-w-2xl mx-auto">
+                Hands-on experience in cloud computing, full-stack development, and AI/ML implementation, 
+                delivering scalable solutions and driving technological innovation across diverse projects
+              </p>
             </motion.div>
             
             <div className="space-y-8">

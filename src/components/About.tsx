@@ -34,28 +34,28 @@ const About = () => {
 
   return (
     <section id="about" className="section-container relative overflow-hidden">
-      {/* Parallax background elements */}
+      {/* Subtle floating elements */}
       <motion.div 
-        className="absolute top-20 left-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl"
+        className="absolute top-20 left-10 w-64 h-64 bg-primary/3 rounded-full blur-3xl"
         animate={{ 
-          y: [0, 30, 0],
-          x: [0, 20, 0]
+          y: [0, 15, 0],
+          x: [0, 10, 0]
         }}
         transition={{ 
           repeat: Infinity, 
-          duration: 8,
+          duration: 12,
           ease: "easeInOut"
         }}
       />
       <motion.div 
-        className="absolute bottom-20 right-10 w-96 h-96 bg-accent/5 rounded-full blur-3xl"
+        className="absolute bottom-20 right-10 w-96 h-96 bg-accent/3 rounded-full blur-3xl"
         animate={{ 
-          y: [0, -40, 0],
-          x: [0, -30, 0]
+          y: [0, -20, 0],
+          x: [0, -15, 0]
         }}
         transition={{ 
           repeat: Infinity, 
-          duration: 10,
+          duration: 15,
           ease: "easeInOut"
         }}
       />
@@ -77,17 +77,16 @@ const About = () => {
             transition={{ duration: 0.6 }}
           >
             <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-              Motivated and detail-oriented Computer Applications student with strong foundations 
-              in programming, database management, and modern software development. I'm passionate 
-              about leveraging technology to solve real-world problems and creating innovative 
-              solutions that make a difference.
+              Dedicated and analytical Computer Applications graduate with a proven track record in 
+              full-stack development, cloud computing, and IoT solutions. Excel at transforming complex 
+              technical challenges into elegant, scalable solutions that drive business value and user satisfaction.
             </p>
             
             <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-              My expertise spans across cloud computing platforms, IoT systems, and full-stack 
-              web development. I thrive in collaborative environments and excel at adapting to 
-              new technologies and methodologies. Always eager to learn and grow, I approach 
-              every challenge with curiosity and determination.
+              Specialized expertise in MERN stack development, cloud platforms (AWS, Azure, GCP), and 
+              IoT automation systems. Thrive in fast-paced environments, leading cross-functional teams 
+              and delivering high-quality software products. Committed to continuous learning and staying 
+              at the forefront of emerging technologies to deliver cutting-edge solutions.
             </p>
           </motion.div>
           

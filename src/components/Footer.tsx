@@ -9,8 +9,8 @@ const Footer = () => {
           <div className="mb-8">
             <h3 className="text-2xl font-bold gradient-text mb-4">Chandu D</h3>
             <p className="text-muted-foreground max-w-md mx-auto">
-              Building innovative solutions with modern technologies. 
-              Always excited to connect and collaborate on interesting projects.
+              MERN Developer crafting innovative digital solutions with modern technologies. 
+              Passionate about driving technological excellence and delivering impactful results.
             </p>
           </div>
 

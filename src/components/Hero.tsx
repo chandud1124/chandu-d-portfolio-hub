@@ -3,10 +3,11 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import heroImage from "@/assets/chandu-hero.jpg";
+import LazyImage from "@/components/ui/lazy-image";
 
 const Hero = () => {
   const [displayText, setDisplayText] = useState("");
-  const fullText = "MCA Student | Aspiring Software Engineer";
+  const fullText = "Master's in Computer Applications | MERN Stack Developer";
   
   useEffect(() => {
     let currentIndex = 0;
@@ -24,11 +25,11 @@ const Hero = () => {
 
   return (
     <section className="section-container relative overflow-hidden">
-      {/* Animated mesh gradient background */}
+      {/* Subtle gradient background */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-background via-primary/5 to-secondary opacity-80" />
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute inset-0 bg-gradient-to-br from-background via-primary/3 to-secondary opacity-60" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
       </div>
       
       <div className="max-container">
@@ -77,9 +78,9 @@ const Hero = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7 }}
             >
-              Cloud & IoT Enthusiast passionate about building innovative solutions. 
-              Currently pursuing Master's in Computer Applications with hands-on experience 
-              in cloud platforms and modern web technologies.
+              Results-driven MERN Developer and Cloud & IoT Enthusiast specializing in full-stack web development 
+              and innovative technology solutions. Currently pursuing Master's in Computer Applications with 
+              extensive hands-on experience in cloud platforms, modern web technologies, and scalable application development.
             </motion.p>
             
             <motion.div 
@@ -152,14 +153,16 @@ const Hero = () => {
             >
               <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-accent/30 rounded-full blur-3xl scale-110 group-hover:scale-125 transition-transform duration-500"></div>
               <div className="absolute inset-0 bg-gradient-to-br from-primary-light/20 to-accent/20 rounded-full blur-2xl animate-pulse"></div>
-              <motion.img
-                src={heroImage}
-                alt="Chandu D - Professional Portrait"
-                className="relative w-80 h-80 lg:w-96 lg:h-96 object-cover rounded-full border-8 border-card shadow-2xl ring-4 ring-primary/20 group-hover:ring-primary/40 transition-all duration-300"
-                whileHover={{ 
-                  boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
-                }}
-              />
+              <div className="relative w-80 h-80 lg:w-96 lg:h-96 rounded-full border-8 border-card shadow-2xl ring-4 ring-primary/20 group-hover:ring-primary/40 transition-all duration-300 overflow-hidden">
+                <LazyImage
+                  src={heroImage}
+                  alt="Chandu D - Professional Portrait"
+                  className="w-full h-full object-cover"
+                  priority={true}
+                  sizes="(max-width: 768px) 320px, 384px"
+                  quality={90}
+                />
+              </div>
             </motion.div>
           </motion.div>
         </div>

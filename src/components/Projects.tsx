@@ -11,7 +11,7 @@ const Projects = () => {
   const projects = [
     {
       title: "Smart Classroom Automation System",
-      description: "An innovative IoT solution for automated classroom management featuring ESP32 microcontrollers, relay controls, and web-based control panels. Integrates multiple sensors for environmental monitoring and automated responses.",
+      description: "Engineered a comprehensive IoT automation system for intelligent classroom management, integrating ESP32 microcontrollers with advanced sensor networks and web-based control interfaces. Implemented real-time environmental monitoring and automated response systems for optimal energy efficiency.",
       technologies: ["IoT", "ESP32", "Web Control Panel", "Sensor Integration", "Automation"],
       features: [
         "Automated lighting and ventilation control",
@@ -21,11 +21,11 @@ const Projects = () => {
       ],
       icon: Cpu,
       color: "from-blue-500 to-cyan-500",
-      impact: "Reduced energy consumption by 30% and improved classroom comfort"
+      impact: "Achieved 30% reduction in energy consumption through intelligent automation algorithms, significantly improving operational efficiency and environmental sustainability"
     },
     {
       title: "Resume Genie Web Application",
-      description: "A comprehensive web application built with ReactJS and MongoDB that helps users create professional resumes. Features an integrated AI chatbot for resume optimization and career guidance.",
+      description: "Architected and developed a full-stack MERN application for professional resume creation, featuring an intelligent AI chatbot for content optimization. Implemented responsive React frontend with Node.js/Express backend and MongoDB database, delivering a seamless user experience with real-time collaboration capabilities.",
       technologies: ["ReactJS", "MongoDB", "AI Chatbot", "Node.js", "Express"],
       features: [
         "Interactive resume builder interface",
@@ -35,14 +35,14 @@ const Projects = () => {
       ],
       icon: Bot,
       color: "from-purple-500 to-pink-500",
-      impact: "Helped 500+ users create professional resumes with AI assistance"
+      impact: "Successfully served 500+ users in creating professional resumes, incorporating AI-driven content suggestions and industry-standard formatting guidelines"
     }
   ];
 
   return (
     <section id="projects" className="section-container bg-secondary/30 relative overflow-hidden">
-      {/* Animated background */}
-      <div className="absolute inset-0 animated-dots opacity-20"></div>
+      {/* Subtle background pattern */}
+      <div className="absolute inset-0 animated-dots opacity-10"></div>
       
       <div className="max-container relative z-10" ref={ref}>
         <motion.div 
@@ -53,7 +53,8 @@ const Projects = () => {
           <h2 className="text-3xl lg:text-4xl font-bold mb-6">Featured Projects</h2>
           <div className="w-20 h-1 bg-gradient-to-r from-primary to-primary-light rounded-full mx-auto"></div>
           <p className="text-lg text-muted-foreground mt-6 max-w-2xl mx-auto">
-            Innovative solutions that showcase my technical expertise and problem-solving abilities
+            Showcasing innovative full-stack applications and IoT solutions that demonstrate technical proficiency, 
+            architectural thinking, and the ability to deliver production-ready software systems
           </p>
         </motion.div>
         

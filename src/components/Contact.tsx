@@ -30,7 +30,7 @@ Message:
 ${formData.message}
       `;
       
-      const mailtoLink = `mailto:chandu.d@example.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(emailBody)}`;
+      const mailtoLink = `mailto:chandu.d.professional@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(emailBody)}`;
       window.location.href = mailtoLink;
       
       toast({
@@ -111,7 +111,8 @@ ${formData.message}
           <h2 className="text-3xl lg:text-4xl font-bold mb-6">Get In Touch</h2>
           <div className="w-20 h-1 bg-gradient-to-r from-primary to-primary-light rounded-full mx-auto"></div>
           <p className="text-lg text-muted-foreground mt-6 max-w-2xl mx-auto">
-            Let's discuss opportunities, collaborations, or just have a conversation about technology
+            Ready to collaborate on innovative projects or discuss exciting opportunities in full-stack development, 
+            cloud computing, and IoT solutions. Let's connect and build something extraordinary together.
           </p>
         </motion.div>
 

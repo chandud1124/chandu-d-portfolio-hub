@@ -15,7 +15,7 @@ const Skills = () => {
   const skillCategories = [
     {
       icon: Globe,
-      title: "Web Technologies",
+      title: "MERN Stack Development",
       skills: [
         { name: "HTML5", level: 90 },
         { name: "CSS3", level: 85 },
@@ -114,8 +114,8 @@ const Skills = () => {
           <h2 className="text-3xl lg:text-4xl font-bold mb-6">Technical Skills</h2>
           <div className="w-20 h-1 bg-gradient-to-r from-primary to-primary-light rounded-full mx-auto"></div>
           <p className="text-lg text-muted-foreground mt-6 max-w-2xl mx-auto">
-            A comprehensive toolkit of modern technologies and frameworks for building 
-            robust, scalable applications
+            Comprehensive expertise across modern technology stacks, enabling the development of 
+            high-performance, scalable, and user-centric applications that meet enterprise standards
           </p>
         </motion.div>
         

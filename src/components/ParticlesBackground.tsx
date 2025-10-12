@@ -38,7 +38,7 @@ function ParticleField() {
 
 const ParticlesBackground = () => {
   return (
-    <div className="fixed inset-0 -z-10 opacity-30">
+    <div className="fixed inset-0 -z-10 opacity-20">
       <Canvas camera={{ position: [0, 0, 3] }}>
         <ParticleField />
       </Canvas>

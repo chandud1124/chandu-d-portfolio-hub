@@ -7,6 +7,7 @@ import cloudCert from "@/assets/certificates/cloud-certificate.jpg";
 import aimlCert from "@/assets/certificates/aiml-certificate.jpg";
 import systemDesignCert from "@/assets/certificates/system-design-certificate.jpg";
 import communicationCert from "@/assets/certificates/communication-certificate.jpg";
+import LazyImage from "@/components/ui/lazy-image";
 
 const Certifications = () => {
   const { ref, isVisible } = useScrollAnimation();
@@ -17,7 +18,7 @@ const Certifications = () => {
       title: "Data Structures & Algorithms",
       issuer: "Programming Fundamentals",
       date: "2024",
-      description: "Comprehensive understanding of fundamental programming concepts and algorithmic thinking",
+      description: "Mastered advanced algorithmic techniques and data structure implementations, enabling efficient problem-solving and optimized code performance across complex computational challenges",
       skills: ["Problem Solving", "Algorithm Design", "Time Complexity", "Space Optimization"],
       color: "from-blue-500 to-blue-600",
       bgColor: "bg-blue-50 dark:bg-blue-950",
@@ -28,7 +29,7 @@ const Certifications = () => {
       title: "Cloud Computing",
       issuer: "AWS • Azure • GCP",
       date: "2024",
-      description: "Multi-cloud expertise covering major cloud platforms and services",
+      description: "Certified expertise in multi-cloud architecture and deployment strategies, specializing in AWS, Azure, and GCP platforms with comprehensive DevOps and infrastructure automation capabilities",
       skills: ["AWS Services", "Azure Cloud", "Google Cloud", "DevOps", "Infrastructure"],
       color: "from-orange-500 to-orange-600",
       bgColor: "bg-orange-50 dark:bg-orange-950",
@@ -39,7 +40,7 @@ const Certifications = () => {
       title: "AI/ML Fundamentals",
       issuer: "Python & Model Building",
       date: "2024",
-      description: "Machine learning foundations with hands-on experience in model development",
+      description: "Advanced proficiency in machine learning algorithms and Python-based model development, with expertise in data preprocessing, feature engineering, and deploying production-ready AI solutions",
       skills: ["Python", "Machine Learning", "Data Analysis", "Model Training", "AI Ethics"],
       color: "from-purple-500 to-purple-600",
       bgColor: "bg-purple-50 dark:bg-purple-950",
@@ -83,7 +84,8 @@ const Certifications = () => {
           <h2 className="text-3xl lg:text-4xl font-bold mb-6">Certifications & Training</h2>
           <div className="w-20 h-1 bg-gradient-to-r from-primary to-primary-light rounded-full mx-auto"></div>
           <p className="text-lg text-muted-foreground mt-6 max-w-2xl mx-auto">
-            Continuous learning and skill development through specialized certifications and training programs
+            Demonstrated commitment to professional excellence through rigorous industry-recognized certifications 
+            and continuous skill enhancement across cutting-edge technologies and methodologies
           </p>
         </motion.div>
         
@@ -171,10 +173,12 @@ const Certifications = () => {
                   </DialogTitle>
                 </DialogHeader>
                 <div className="mt-4">
-                  <img 
-                    src={cert.certificate} 
+                  <LazyImage
+                    src={cert.certificate}
                     alt={`${cert.title} Certificate`}
                     className="w-full h-auto rounded-lg shadow-lg"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 80vw, 60vw"
+                    quality={85}
                   />
                 </div>
               </DialogContent>
