@@ -1,0 +1,19 @@
+{
+  "name": "Chandu D - MERN Stack Developer Portfolio",
+  "short_name": "Chandu D Portfolio",
+  "description": "Professional portfolio of Chandu D - MERN Stack Developer, Cloud Engineer, and IoT Specialist",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0F172A",
+  "theme_color": "#14B8A6",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["portfolio", "developer", "technology"]
+}

@@ -1,4 +1,4 @@
-import { ExternalLink, Github, Cpu, Bot, Smartphone } from "lucide-react";
+import { ExternalLink, Github, Cpu, Bot, Smartphone, Eye, Zap, Brain } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
@@ -10,23 +10,24 @@ const Projects = () => {
 
   const projects = [
     {
-      title: "Smart Classroom Automation System",
-      description: "Engineered a comprehensive IoT automation system for intelligent classroom management, integrating ESP32 microcontrollers with advanced sensor networks and web-based control interfaces. Implemented real-time environmental monitoring and automated response systems for optimal energy efficiency.",
-      technologies: ["IoT", "ESP32", "Web Control Panel", "Sensor Integration", "Automation"],
+      title: "Live Emotion Detection System",
+      description: "Developed an AI-powered real-time emotion recognition system using computer vision and deep learning. Detects faces from live video feeds and classifies emotions instantly — such as happy, sad, angry, or neutral — using YOLOv8 and DeepFace.",
+      technologies: ["Python 3.13", "OpenCV", "YOLOv8", "DeepFace", "PyTorch", "NumPy"],
       features: [
-        "Automated lighting and ventilation control",
-        "Real-time environmental monitoring",
-        "Web-based dashboard for remote control",
-        "Energy optimization algorithms"
+        "Face detection with YOLOv8",
+        "Emotion recognition with DeepFace",
+        "Real-time overlay on live feed",
+        "Multi-camera support and console logging",
+        "No data storage (privacy-safe)"
       ],
-      icon: Cpu,
-      color: "from-blue-500 to-cyan-500",
-      impact: "Achieved 30% reduction in energy consumption through intelligent automation algorithms, significantly improving operational efficiency and environmental sustainability"
+      icon: Brain,
+      color: "from-purple-500 to-indigo-500",
+      impact: "Successfully implemented real-time emotion recognition with high accuracy, providing a foundation for emotion-aware AI applications and human-computer interaction systems"
     },
     {
-      title: "Resume Genie Web Application",
-      description: "Architected and developed a full-stack MERN application for professional resume creation, featuring an intelligent AI chatbot for content optimization. Implemented responsive React frontend with Node.js/Express backend and MongoDB database, delivering a seamless user experience with real-time collaboration capabilities.",
-      technologies: ["ReactJS", "MongoDB", "AI Chatbot", "Node.js", "Express"],
+      title: "ResumeGenie – AI Resume Builder",
+      description: "Architected a full-stack MERN web application for professional resume creation with AI-powered optimization. Includes an intelligent chatbot that helps users enhance their resumes in real-time with modern templates and smart suggestions.",
+      technologies: ["React.js", "MongoDB", "Node.js", "Express.js", "Gemini AI"],
       features: [
         "Interactive resume builder interface",
         "AI-powered content suggestions",
@@ -35,7 +36,38 @@ const Projects = () => {
       ],
       icon: Bot,
       color: "from-purple-500 to-pink-500",
-      impact: "Successfully served 500+ users in creating professional resumes, incorporating AI-driven content suggestions and industry-standard formatting guidelines"
+      impact: "Successfully served users in creating professional resumes, incorporating AI-driven content suggestions and industry-standard formatting guidelines"
+    },
+    {
+      title: "AutoVolt – Smart IoT Classroom Automation System",
+      description: "Engineered a full-stack IoT automation platform for intelligent classroom control and energy management. Integrates ESP32 microcontrollers and cloud APIs to automate lights, fans, and electrical devices in real-time with AI-driven optimization.",
+      technologies: ["React.js", "Node.js", "Express.js", "MongoDB", "ESP32", "MQTT", "TailwindCSS", "Docker"],
+      features: [
+        "Automated control of classroom appliances",
+        "Web dashboard for real-time monitoring",
+        "MQTT-based device communication",
+        "Admin & user roles with secure authentication",
+        "AI-driven energy optimization"
+      ],
+      icon: Zap,
+      color: "from-yellow-500 to-orange-500",
+      impact: "Reduced classroom energy consumption by 30%, improving efficiency and sustainability."
+    },
+    {
+      title: "AI Vision Attendance System",
+      description: "Developed a face recognition-based attendance system for educational institutions. Combines AI-powered facial recognition, secure Node.js backend, and a web dashboard to automate attendance via live camera feeds.",
+      technologies: ["React (TypeScript)", "Node.js", "Express.js", "TailwindCSS", "TensorFlow.js", "BlazeFace", "WebRTC"],
+      features: [
+        "Real-time face detection using TensorFlow.js & BlazeFace",
+        "WebRTC-based in-browser camera capture",
+        "Role-based authentication (JWT, bcrypt)",
+        "CRUD management for students & classrooms",
+        "JSON database for lightweight storage",
+        "Interactive dashboard for attendance tracking"
+      ],
+      icon: Eye,
+      color: "from-cyan-500 to-blue-500",
+      impact: "Successfully automated attendance management for educational institutions, reducing manual effort by 80% while maintaining high accuracy in face recognition and attendance tracking"
     }
   ];
 
@@ -67,11 +99,7 @@ const Projects = () => {
               transition={{ duration: 0.5, delay: index * 0.2 }}
               onHoverStart={() => setHoveredIndex(index)}
               onHoverEnd={() => setHoveredIndex(null)}
-              whileHover={{ 
-                scale: 1.02,
-                rotateY: hoveredIndex === index ? 2 : 0,
-                rotateX: hoveredIndex === index ? 2 : 0,
-              }}
+              whileHover={{ scale: 1.005 }}
               className="tilt-card"
             >
               <div className="professional-card border-gradient group relative overflow-hidden h-full">
@@ -83,7 +111,7 @@ const Projects = () => {
                   <div className="flex items-center gap-4 mb-4">
                     <motion.div 
                       className={`w-14 h-14 bg-gradient-to-br ${project.color} rounded-2xl flex items-center justify-center`}
-                      whileHover={{ rotate: 360, scale: 1.1 }}
+                      whileHover={{ rotate: 360, scale: 1.005 }}
                       transition={{ duration: 0.6 }}
                     >
                       <project.icon className="w-7 h-7 text-white" />
@@ -126,7 +154,7 @@ const Projects = () => {
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={isVisible ? { opacity: 1, scale: 1 } : {}}
                         transition={{ delay: index * 0.2 + techIdx * 0.05 }}
-                        whileHover={{ scale: 1.1 }}
+                        whileHover={{ scale: 1.005 }}
                       >
                         {tech}
                       </motion.span>
@@ -134,18 +162,20 @@ const Projects = () => {
                   </div>
                 </div>
 
-                {/* Impact */}
-                <div className="mb-6 p-4 glass-card border border-green-200 dark:border-green-800 rounded-xl">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                    <span className="font-semibold text-green-800 dark:text-green-400">Impact</span>
+                {/* Impact - Only show for AutoVolt */}
+                {project.title.includes("AutoVolt") && (
+                  <div className="mb-6 p-4 glass-card border border-green-200 dark:border-green-800 rounded-xl">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                      <span className="font-semibold text-green-800 dark:text-green-400">Impact</span>
+                    </div>
+                    <p className="text-green-700 dark:text-green-300 text-sm">{project.impact}</p>
                   </div>
-                  <p className="text-green-700 dark:text-green-300 text-sm">{project.impact}</p>
-                </div>
+                )}
 
                 {/* Action Buttons */}
                 <div className="flex gap-3">
-                  <motion.div className="flex-1" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <motion.div className="flex-1" whileHover={{ scale: 1.005 }} whileTap={{ scale: 0.95 }}>
                     <Button 
                       variant="outline" 
                       size="sm" 
@@ -156,7 +186,7 @@ const Projects = () => {
                       View Code
                     </Button>
                   </motion.div>
-                  <motion.div className="flex-1" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <motion.div className="flex-1" whileHover={{ scale: 1.005 }} whileTap={{ scale: 0.95 }}>
                     <Button 
                       size="sm" 
                       className="w-full"
@@ -191,7 +221,7 @@ const Projects = () => {
               I'm always excited to discuss new projects and opportunities. 
               Let's connect and explore how we can work together!
             </p>
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <motion.div whileHover={{ scale: 1.005 }} whileTap={{ scale: 0.95 }}>
               <Button className="btn-hero">
                 <ExternalLink className="w-5 h-5 mr-2" />
                 View All Projects

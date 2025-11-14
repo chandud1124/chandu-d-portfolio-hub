@@ -15,25 +15,27 @@ const Skills = () => {
   const skillCategories = [
     {
       icon: Globe,
-      title: "MERN Stack Development",
+      title: "Frontend Development",
       skills: [
+        { name: "React.js", level: 85 },
         { name: "HTML5", level: 90 },
         { name: "CSS3", level: 85 },
-        { name: "XML", level: 75 },
+        { name: "TailwindCSS", level: 88 },
         { name: "JavaScript", level: 88 },
-        { name: "React.js", level: 85 },
-        { name: "Node.js", level: 80 }
+        { name: "TypeScript", level: 80 }
       ],
       color: "text-primary",
       bgColor: "bg-primary/10"
     },
     {
       icon: Code,
-      title: "Programming Languages",
+      title: "Backend Development",
       skills: [
-        { name: "Java", level: 85 },
-        { name: "C", level: 80 },
-        { name: "Python", level: 88 }
+        { name: "Node.js", level: 80 },
+        { name: "Express.js", level: 82 },
+        { name: "REST APIs", level: 85 },
+        { name: "JWT", level: 80 },
+        { name: "bcrypt", level: 78 }
       ],
       color: "text-accent",
       bgColor: "bg-accent/10"
@@ -42,8 +44,8 @@ const Skills = () => {
       icon: Database,
       title: "Databases",
       skills: [
-        { name: "MySQL", level: 85 },
-        { name: "MongoDB", level: 82 }
+        { name: "MongoDB", level: 82 },
+        { name: "MySQL", level: 85 }
       ],
       color: "text-primary",
       bgColor: "bg-primary/10"
@@ -61,20 +63,26 @@ const Skills = () => {
     },
     {
       icon: GitBranch,
-      title: "Version Control",
+      title: "IoT & Automation",
       skills: [
-        { name: "Git", level: 90 },
-        { name: "GitHub", level: 88 }
+        { name: "ESP32", level: 85 },
+        { name: "MQTT", level: 82 },
+        { name: "TensorFlow", level: 78 },
+        { name: "Python", level: 88 },
+        { name: "OpenCV", level: 80 }
       ],
       color: "text-muted-foreground",
       bgColor: "bg-muted"
     },
     {
       icon: Palette,
-      title: "UI/UX Design",
+      title: "Dev Tools & Design",
       skills: [
-        { name: "Figma", level: 80 },
-        { name: "WIX", level: 75 }
+        { name: "Git", level: 90 },
+        { name: "GitHub", level: 88 },
+        { name: "Docker", level: 75 },
+        { name: "VS Code", level: 85 },
+        { name: "Figma", level: 80 }
       ],
       color: "text-primary",
       bgColor: "bg-primary/10"
@@ -120,7 +128,7 @@ const Skills = () => {
         </motion.div>
         
         <motion.div 
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
           variants={containerVariants}
           initial="hidden"
           animate={isVisible ? "visible" : "hidden"}
@@ -129,21 +137,17 @@ const Skills = () => {
             <motion.div
               key={category.title}
               variants={itemVariants}
-              whileHover={{ 
-                scale: 1.05,
-                rotateY: 5,
-                rotateX: 5,
-              }}
+              whileHover={{ scale: 1.005 }}
               transition={{ type: "spring", stiffness: 300 }}
-              className="tilt-card"
+              className="tilt-card h-full"
             >
-              <div className="professional-card border-gradient group relative overflow-hidden">
+              <div className="professional-card border-gradient group relative overflow-hidden h-full flex flex-col">
                 {/* Neon glow on hover */}
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity neon-glow -z-10"></div>
                 
                 <div className="flex items-center gap-4 mb-6">
                   <motion.div 
-                    className={`w-14 h-14 ${category.bgColor} rounded-2xl flex items-center justify-center`}
+                    className={`w-14 h-14 ${category.bgColor} rounded-2xl flex items-center justify-center flex-shrink-0`}
                     whileHover={{ rotate: 360 }}
                     transition={{ duration: 0.5 }}
                   >
@@ -152,7 +156,7 @@ const Skills = () => {
                   <h3 className="font-semibold text-xl">{category.title}</h3>
                 </div>
                 
-                <div className="space-y-3">
+                <div className="space-y-3 flex-grow">
                   {category.skills.map((skill, skillIndex) => (
                     <motion.div
                       key={skill.name}

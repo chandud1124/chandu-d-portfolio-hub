@@ -1,4 +1,4 @@
-import { Mail, Linkedin, Download, MapPin } from "lucide-react";
+import { Linkedin, Download, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -7,7 +7,7 @@ import LazyImage from "@/components/ui/lazy-image";
 
 const Hero = () => {
   const [displayText, setDisplayText] = useState("");
-  const fullText = "Master's in Computer Applications | MERN Stack Developer";
+  const fullText = "Full-Stack MERN Developer | Cloud & IoT Enthusiast";
   
   useEffect(() => {
     let currentIndex = 0;
@@ -56,6 +56,8 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
+              role="heading"
+              aria-level={1}
             >
               Hi, I'm{" "}
               <span className="gradient-text bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary-light animate-gradient">
@@ -78,9 +80,8 @@ const Hero = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7 }}
             >
-              Results-driven MERN Developer and Cloud & IoT Enthusiast specializing in full-stack web development 
-              and innovative technology solutions. Currently pursuing Master's in Computer Applications with 
-              extensive hands-on experience in cloud platforms, modern web technologies, and scalable application development.
+              Results-driven MERN Developer and Cloud & IoT Enthusiast, passionate about building intelligent, scalable, and impactful digital solutions.
+              Currently pursuing a Master's in Computer Applications (MCA), I specialize in full-stack web development, cloud computing, and IoT-based automation systems.
             </motion.p>
             
             <motion.div 
@@ -89,25 +90,7 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.9 }}
             >
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button 
-                  className="btn-hero group relative overflow-hidden"
-                  onClick={() => {
-                    const element = document.querySelector('#contact');
-                    if (element) {
-                      element.scrollIntoView({ behavior: 'smooth' });
-                    }
-                  }}
-                >
-                  <span className="relative z-10 flex items-center">
-                    <Mail className="w-5 h-5 mr-2" />
-                    Get In Touch
-                  </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary-light to-accent opacity-0 group-hover:opacity-100 transition-opacity" />
-                </Button>
-              </motion.div>
-              
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <motion.div whileHover={{ scale: 1.005 }} whileTap={{ scale: 0.95 }}>
                 <Button 
                   variant="outline" 
                   className="btn-outline-hero group"
@@ -125,7 +108,7 @@ const Hero = () => {
                 </Button>
               </motion.div>
               
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <motion.div whileHover={{ scale: 1.005 }} whileTap={{ scale: 0.95 }}>
                 <Button 
                   variant="ghost" 
                   size="lg" 
@@ -148,7 +131,7 @@ const Hero = () => {
           >
             <motion.div 
               className="relative group"
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.005 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-accent/30 rounded-full blur-3xl scale-110 group-hover:scale-125 transition-transform duration-500"></div>

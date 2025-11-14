@@ -9,8 +9,8 @@ const About = () => {
     {
       icon: GraduationCap,
       title: "Education",
-      subtitle: "Master of Computer Applications",
-      description: "AIMS Institutes • 2023–2025 (Ongoing)",
+      subtitle: "Master of Computer Applications (MCA)",
+      description: "AIMS Institutes, Bengaluru • 2023–2025 (Ongoing)",
       color: "text-primary",
       bgColor: "bg-primary/10"
     },
@@ -25,8 +25,8 @@ const About = () => {
     {
       icon: Languages,
       title: "Languages",
-      subtitle: "Multilingual Communication",
-      description: "English, Kannada",
+      subtitle: "English & Kannada",
+      description: "Professional communication in English and native fluency in Kannada",
       color: "text-primary",
       bgColor: "bg-secondary/50"
     }
@@ -77,16 +77,12 @@ const About = () => {
             transition={{ duration: 0.6 }}
           >
             <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-              Dedicated and analytical Computer Applications graduate with a proven track record in 
-              full-stack development, cloud computing, and IoT solutions. Excel at transforming complex 
-              technical challenges into elegant, scalable solutions that drive business value and user satisfaction.
+              I'm a dedicated and analytical developer who thrives on solving real-world challenges through technology.
+              With hands-on experience in MERN stack, AI/ML, IoT automation, and multi-cloud architecture, I bring together creativity and technical precision to design systems that perform and scale.
             </p>
             
             <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-              Specialized expertise in MERN stack development, cloud platforms (AWS, Azure, GCP), and 
-              IoT automation systems. Thrive in fast-paced environments, leading cross-functional teams 
-              and delivering high-quality software products. Committed to continuous learning and staying 
-              at the forefront of emerging technologies to deliver cutting-edge solutions.
+              I love working on projects that combine hardware and software, AI intelligence, and cloud infrastructure, driving innovation from concept to deployment.
             </p>
           </motion.div>
           
@@ -97,11 +93,7 @@ const About = () => {
                 initial={{ opacity: 0, x: 50 }}
                 animate={isVisible ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ 
-                  scale: 1.03,
-                  rotateY: 3,
-                  rotateX: 3
-                }}
+                whileHover={{ scale: 1.005 }}
                 className="tilt-card"
               >
                 <div className="professional-card glass-card group">

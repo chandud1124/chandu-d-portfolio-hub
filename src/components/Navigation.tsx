@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
+import { ThemeToggle } from "./ThemeToggle";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -43,9 +44,27 @@ const Navigation = () => {
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const headerOffset = 80; // Height of fixed navigation
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      // Close mobile menu first
+      setIsOpen(false);
+
+      // Add a small delay for mobile devices to ensure menu closes properly
+      const isMobile = window.innerWidth < 768;
+      const delay = isMobile ? 300 : 0;
+
+      setTimeout(() => {
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }, delay);
+    } else {
+      // If element not found, still close the menu
+      setIsOpen(false);
     }
-    setIsOpen(false);
   };
 
   return (
@@ -64,7 +83,7 @@ const Navigation = () => {
           {/* Logo */}
           <motion.div 
             className="font-bold text-xl gradient-text bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary-light animate-gradient"
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.005 }}
           >
             Chandu D
           </motion.div>
@@ -82,7 +101,7 @@ const Navigation = () => {
                       ? 'text-primary' 
                       : 'text-foreground hover:text-primary'
                   }`}
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: 1.005 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   {item.label}
@@ -96,41 +115,44 @@ const Navigation = () => {
                 </motion.button>
               );
             })}
+            <ThemeToggle />
           </div>
 
-          {/* Mobile menu button */}
-          <motion.div whileTap={{ scale: 0.95 }}>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="md:hidden"
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              <AnimatePresence mode="wait">
-                {isOpen ? (
-                  <motion.div
-                    key="close"
-                    initial={{ rotate: -90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <X className="w-5 h-5" />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="menu"
-                    initial={{ rotate: 90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: -90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <Menu className="w-5 h-5" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </Button>
-          </motion.div>
+          {/* Mobile menu button and theme toggle */}
+          <div className="flex items-center gap-2 md:hidden">
+            <ThemeToggle />
+            <motion.div whileTap={{ scale: 0.95 }}>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                <AnimatePresence mode="wait">
+                  {isOpen ? (
+                    <motion.div
+                      key="close"
+                      initial={{ rotate: -90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: 90, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <X className="w-5 h-5" />
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="menu"
+                      initial={{ rotate: 90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: -90, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <Menu className="w-5 h-5" />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </Button>
+            </motion.div>
+          </div>
         </div>
 
         {/* Mobile Navigation */}
