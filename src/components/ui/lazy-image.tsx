@@ -69,19 +69,22 @@ const LazyImage = ({
     return `/optimized/${baseName}${sizeSuffix}.${format}`;
   };
 
-  // Extract base name from src (remove @/assets/ and extension)
+  // Extract base name from src (handle both import paths and runtime URLs)
   const getBaseName = (srcPath: string) => {
     return srcPath
       .replace('@/assets/', '')
       .replace('@/assets/certificates/', '')
-      .replace(/\.(jpg|jpeg|png)$/i, '');
+      .replace('/assets/', '')
+      .replace('/src/assets/', '')
+      .replace(/\.(jpg|jpeg|png)$/i, '')
+      .replace(/-[a-f0-9]{8,}$/, ''); // Remove Vite hash suffixes
   };
 
   const baseName = getBaseName(src);
 
   // Generate responsive image sources
   const generateSrcSet = (format: 'webp' | 'avif' | 'jpg') => {
-    const sizes = [320, 640, 960];
+    const sizes = [320, 640]; // Match the actual optimized sizes generated
     return sizes
       .map(size => `${getOptimizedImagePath(baseName, format, size)} ${size}w`)
       .join(', ');
