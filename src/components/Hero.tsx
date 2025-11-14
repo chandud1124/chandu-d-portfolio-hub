@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import heroImage from "@/assets/chandu.jpeg";
-import LazyImage from "@/components/ui/lazy-image";
 
 const Hero = () => {
   const [displayText, setDisplayText] = useState("");
@@ -137,13 +136,11 @@ const Hero = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-accent/30 rounded-full blur-3xl scale-110 group-hover:scale-125 transition-transform duration-500"></div>
               <div className="absolute inset-0 bg-gradient-to-br from-primary-light/20 to-accent/20 rounded-full blur-2xl animate-pulse"></div>
               <div className="relative w-80 h-80 lg:w-96 lg:h-96 rounded-full border-8 border-card shadow-2xl ring-4 ring-primary/20 group-hover:ring-primary/40 transition-all duration-300 overflow-hidden">
-                <LazyImage
+                <img
                   src={heroImage}
                   alt="Chandu D - Professional Portrait"
                   className="w-full h-full object-cover"
-                  priority={true}
-                  sizes="(max-width: 768px) 320px, 384px"
-                  quality={90}
+                  loading="eager"
                 />
               </div>
             </motion.div>
