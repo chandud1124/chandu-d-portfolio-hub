@@ -2,6 +2,7 @@ import { Linkedin, Download, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import heroImage from "@/assets/chandu.jpeg";
 import LazyImage from "@/components/ui/lazy-image";
 
 const Hero = () => {
@@ -137,7 +138,7 @@ const Hero = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-primary-light/20 to-accent/20 rounded-full blur-2xl animate-pulse"></div>
               <div className="relative w-80 h-80 lg:w-96 lg:h-96 rounded-full border-8 border-card shadow-2xl ring-4 ring-primary/20 group-hover:ring-primary/40 transition-all duration-300 overflow-hidden">
                 <LazyImage
-                  src="/chandu.jpeg"
+                  src={heroImage}
                   alt="Chandu D - Professional Portrait"
                   className="w-full h-full object-cover"
                   priority={true}
