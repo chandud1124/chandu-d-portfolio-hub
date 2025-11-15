@@ -128,6 +128,10 @@ const CustomCursorRocket: React.FC = () => {
         const radians = Math.atan2(dy, dx);
         const deg = (radians * 180) / Math.PI;
         setAngle(deg + 90); // rotate the rocket to point along movement; +90 for rocket SVG orientation
+        if (rocketRef.current) {
+          // Apply immediate transform using the newly computed angle
+          rocketRef.current.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%) rotate(${deg + 90}deg)`;
+        }
       }
       prevX = x;
       prevY = y;
