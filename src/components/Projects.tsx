@@ -1,12 +1,14 @@
-import { ExternalLink, Github, Cpu, Bot, Smartphone, Eye, Zap, Brain } from "lucide-react";
+import { ExternalLink, Github, Cpu, Bot, Smartphone, Eye, Zap, Brain, Palette } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Projects = () => {
   const { ref, isVisible } = useScrollAnimation();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const navigate = useNavigate();
 
   const projects = [
     {
@@ -221,12 +223,23 @@ const Projects = () => {
               I'm always excited to discuss new projects and opportunities. 
               Let's connect and explore how we can work together!
             </p>
-            <motion.div whileHover={{ scale: 1.005 }} whileTap={{ scale: 0.95 }}>
-              <Button className="btn-hero">
-                <ExternalLink className="w-5 h-5 mr-2" />
-                View All Projects
-              </Button>
-            </motion.div>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <motion.div whileHover={{ scale: 1.005 }} whileTap={{ scale: 0.95 }}>
+                <Button className="btn-hero">
+                  <ExternalLink className="w-5 h-5 mr-2" />
+                  View All Projects
+                </Button>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.005 }} whileTap={{ scale: 0.95 }}>
+                <Button 
+                  className="btn-hero bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                  onClick={() => navigate('/creative-work')}
+                >
+                  <Palette className="w-5 h-5 mr-2" />
+                  View Creative & Media Work
+                </Button>
+              </motion.div>
+            </div>
           </div>
         </motion.div>
       </div>

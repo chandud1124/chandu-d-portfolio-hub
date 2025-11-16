@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import PointerSVG from '../assets/Untitled.svg';
+import rocketIcon from "@/assets/paper-rocket.svg";
 
 type Point = {
   x: number;
@@ -15,7 +15,7 @@ const CustomCursorRocket: React.FC = () => {
   const pointsRef = useRef<Point[]>([]);
   const rafRef = useRef<number | null>(null);
   const [visible, setVisible] = useState(true);
-  // No angle state needed; pointer stays at SVG's original orientation
+  const [angle, setAngle] = useState(0);
 
   // Utility to resize canvas
   const resizeCanvas = (canvas: HTMLCanvasElement) => {
@@ -44,35 +44,24 @@ const CustomCursorRocket: React.FC = () => {
     if (!ctx) return;
 
     const draw = () => {
-      // Remove old points (fade out after MAX_AGE ms)
-      const now = performance.now();
-      while (pointsRef.current.length && now - pointsRef.current[0].t > MAX_AGE) {
-        pointsRef.current.shift();
-      }
+      // Simple fade effect like the reference
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.fillStyle = "rgba(0,0,0,0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.globalCompositeOperation = "source-over";
 
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Draw a dashed, animated, glowing trail that fades out
+      // Draw simple line trail between stored points
       if (pointsRef.current.length > 1) {
-        ctx.save();
-        ctx.setLineDash([12, 12]); // Dashed line
-        ctx.lineDashOffset = -((performance.now() / 6) % 24); // Animate dash offset
         ctx.beginPath();
         ctx.moveTo(pointsRef.current[0].x, pointsRef.current[0].y);
+
         for (let i = 1; i < pointsRef.current.length; i++) {
           ctx.lineTo(pointsRef.current[i].x, pointsRef.current[i].y);
         }
-        // Fade out trail by age (use alpha of last point)
-        const now = performance.now();
-        const last = pointsRef.current[pointsRef.current.length - 1];
-        const age = now - last.t;
-        const alpha = Math.max(0, 1 - age / MAX_AGE);
-        ctx.strokeStyle = `rgba(99,102,241,${alpha * 0.7})`;
-        ctx.shadowBlur = 8;
-        ctx.shadowColor = 'rgba(99,102,241,0.4)';
-        ctx.lineWidth = 3;
+
+        ctx.strokeStyle = "rgba(255,255,255,0.6)";
+        ctx.lineWidth = 2;
         ctx.stroke();
-        ctx.restore();
       }
     };
 
@@ -88,7 +77,9 @@ const CustomCursorRocket: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    // Mouse move handler: push point and update pointer position only
+    // Mouse move handler: push point and update rocket position + angle
+    let prevX = 0;
+    let prevY = 0;
     const handleMove = (e: MouseEvent) => {
       const x = e.clientX;
       const y = e.clientY;
@@ -100,9 +91,20 @@ const CustomCursorRocket: React.FC = () => {
       const maxPoints = 50;
       if (pointsRef.current.length > maxPoints) pointsRef.current.shift();
 
-      // Shift pointer and trail slightly right (e.g., by 8px)
+      // Update angle for airplane rotation
+      const dx = x - prevX;
+      const dy = y - prevY;
+      if (dx !== 0 || dy !== 0) {
+        const radians = Math.atan2(dy, dx);
+        const deg = (radians * 180) / Math.PI;
+        setAngle(deg + 90); // adjust for airplane orientation
+      }
+      prevX = x;
+      prevY = y;
+
+      // Update airplane position
       if (rocketRef.current) {
-        rocketRef.current.style.transform = `translate(${x + 8}px, ${y}px) translate(-32px, -32px)`;
+        rocketRef.current.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%) rotate(${angle}deg)`;
       }
     };
 
@@ -130,29 +132,20 @@ const CustomCursorRocket: React.FC = () => {
       window.removeEventListener('touchstart', handleTouch);
       document.body.style.cursor = 'default';
     };
-  }, []);
+  }, [angle]);
 
-  // Ensure pointer element is updated to latest position (no rotation)
+  // Ensure rocket element is updated to latest angle
   useEffect(() => {
     if (rocketRef.current) {
-      rocketRef.current.style.transform = `translate(${pointsRef.current.length ? pointsRef.current[pointsRef.current.length - 1].x + 8 : 0}px, ${pointsRef.current.length ? pointsRef.current[pointsRef.current.length - 1].y : 0}px) translate(-32px, -32px)`;
+      rocketRef.current.style.transform = `translate(${pointsRef.current.length ? pointsRef.current[pointsRef.current.length - 1].x : 0}px, ${pointsRef.current.length ? pointsRef.current[pointsRef.current.length - 1].y : 0}px) translate(-50%, -50%) rotate(${angle}deg)`;
     }
-  }, []);
+  }, [angle]);
 
   return (
     <>
-      {/* Canvas for glowing trail */}
       <canvas
         ref={canvasRef}
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100vw',
-          height: '100vh',
-          pointerEvents: 'none',
-          zIndex: 9998,
-        }}
+        style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 9998 }}
       />
       {visible && (
         <div
@@ -161,18 +154,18 @@ const CustomCursorRocket: React.FC = () => {
             position: 'fixed',
             top: 0,
             left: 0,
-            width: 64,
-            height: 64,
+            width: 40,
+            height: 40,
             pointerEvents: 'none',
             zIndex: 9999,
-            transform: 'translate(-50%, -50%)',
+            transform: 'translate(-50%, -50%) rotate(0deg)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             color: 'white',
           }}
         >
-          <img src={PointerSVG} alt="Pointer Cursor" style={{ width: '64px', height: '64px', filter: 'drop-shadow(0 0 3px #99f)' }} />
+          <img src={rocketIcon} alt="Paper Rocket" style={{ width: '28px', height: '28px' }} />
         </div>
       )}
     </>

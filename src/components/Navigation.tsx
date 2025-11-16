@@ -3,11 +3,14 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { ThemeToggle } from "./ThemeToggle";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,10 +41,26 @@ const Navigation = () => {
     { href: "#experience", label: "Experience" },
     { href: "#projects", label: "Projects" },
     { href: "#certifications", label: "Certifications" },
+    { href: "/creative-work", label: "Creative Work" },
     { href: "#contact", label: "Contact" }
   ];
 
   const scrollToSection = (href: string) => {
+    // Check if it's a route change (starts with /)
+    if (href.startsWith('/')) {
+      setIsOpen(false);
+      navigate(href);
+      return;
+    }
+
+    // Check if we're on a different page
+    if (location.pathname !== '/') {
+      setIsOpen(false);
+      navigate('/' + href);
+      return;
+    }
+
+    // Same page scroll
     const element = document.querySelector(href);
     if (element) {
       const headerOffset = 80; // Height of fixed navigation
