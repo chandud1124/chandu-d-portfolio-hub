@@ -100,9 +100,10 @@ const CustomCursorRocket: React.FC = () => {
       const maxPoints = 50;
       if (pointsRef.current.length > maxPoints) pointsRef.current.shift();
 
-      // Shift pointer and trail slightly right (e.g., by 8px)
+      // Position cursor so the tip (front edge) is at actual click point
+      // The pointer SVG points right, so offset to left and up to align tip
       if (rocketRef.current) {
-        rocketRef.current.style.transform = `translate(${x + 8}px, ${y}px) translate(-32px, -32px)`;
+        rocketRef.current.style.transform = `translate(${x}px, ${y}px) translate(-8px, -32px)`;
       }
     };
 
@@ -135,7 +136,7 @@ const CustomCursorRocket: React.FC = () => {
   // Ensure pointer element is updated to latest position (no rotation)
   useEffect(() => {
     if (rocketRef.current) {
-      rocketRef.current.style.transform = `translate(${pointsRef.current.length ? pointsRef.current[pointsRef.current.length - 1].x + 8 : 0}px, ${pointsRef.current.length ? pointsRef.current[pointsRef.current.length - 1].y : 0}px) translate(-32px, -32px)`;
+      rocketRef.current.style.transform = `translate(${pointsRef.current.length ? pointsRef.current[pointsRef.current.length - 1].x : 0}px, ${pointsRef.current.length ? pointsRef.current[pointsRef.current.length - 1].y : 0}px) translate(-8px, -32px)`;
     }
   }, []);
 

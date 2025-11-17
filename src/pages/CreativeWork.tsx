@@ -3,6 +3,17 @@ import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'fram
 import { Navigation, ParticlesBackground, Footer } from '@/components/lazy-components';
 import { X, Download, ZoomIn, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import CreativeBackground from '@/components/CreativeBackground';
+
+// Import certificate images
+import nsdcert from '@/assets/nsdcert.png';
+import clubcert from '@/assets/clubcert.png';
+import recert from '@/assets/recert.png';
+import recert2 from '@/assets/recert2.png';
+import sciensedayposter from '@/assets/sciensedayposter.png';
+import certcret from '@/assets/certcret.png';
+import quant from '@/assets/quant.png';
+import nsdposter from '@/assets/nsdposter.jpg';
 
 type CreativeItem = {
   id: number;
@@ -18,49 +29,56 @@ const creativeItems: CreativeItem[] = [
     title: 'National Science Day 2025',
     category: 'Certificate Design',
     description: 'Professional certificate created for AIMS School of IT recognizing participation in National Science Day 2025. Features a futuristic gradient background, node-network graphics, and a clean academic layout.',
-    imageUrl: '/certificates/national-science-day.jpg',
+    imageUrl: nsdcert,
   },
   {
     id: 2,
     title: 'Aurora Club – Badminton Tournament',
     category: 'Sports Event Certificate',
     description: 'Sports event achievement certificate designed for Aurora Club\'s Badminton (Solo) Tournament with a bright two-tone layout and sports visuals.',
-    imageUrl: '/certificates/badminton-tournament.jpg',
+    imageUrl: clubcert,
   },
   {
     id: 3,
     title: 'Best Research Article – Quantum Computing Day',
     category: 'Academic Certificate',
     description: 'Certificate awarded for authoring the Best Research Article for Quantum Computing Day. Clean blue academic design with formal structure.',
-    imageUrl: '/certificates/best-research-quantum.jpg',
+    imageUrl: recert,
   },
   {
     id: 4,
     title: 'Best Research Article – Variant Layout',
     category: 'Academic Certificate (Alternate)',
     description: 'A modern alternative design featuring geometric gradients and a refined scholarly presentation.',
-    imageUrl: '/certificates/research-variant.jpg',
+    imageUrl: recert2,
   },
   {
     id: 5,
     title: 'National Science Day 2025 – Event Poster',
     category: 'Event Poster',
     description: 'Vibrant poster featuring CV Raman, atoms, planets, and scientific illustrations — created for National Science Day celebrations.',
-    imageUrl: '/certificates/science-day-poster.jpg',
+    imageUrl: sciensedayposter,
   },
   {
     id: 6,
     title: 'Best E-Poster Design Certificate',
     category: 'Creative Design Certificate',
     description: 'Certificate featuring an abstract smoke-background and vertical typography, awarded for Best E-Poster Design.',
-    imageUrl: '/certificates/best-eposter.jpg',
+    imageUrl: certcret,
   },
   {
     id: 7,
     title: 'Online Quiz Competition – Quantum Computing Day',
     category: 'Competition Certificate',
     description: 'Certificate designed for the Online Quiz Competition held during World Quantum Computing Day, featuring quantum-themed visuals and geometric layers.',
-    imageUrl: '/certificates/quantum-quiz.jpg',
+    imageUrl: quant,
+  },
+  {
+    id: 8,
+    title: 'National Science Day 2025 – Poster',
+    category: 'Event Poster',
+    description: 'Official poster design for National Science Day 2025 celebrations, featuring scientific themes, innovative layouts, and educational messaging.',
+    imageUrl: nsdposter,
   },
 ];
 
@@ -116,6 +134,9 @@ const CreativeWork: React.FC = () => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(99,102,241,0.1),transparent_50%)] animate-pulse-slow"></div>
       </div>
 
+      {/* Creative Background Elements */}
+      <CreativeBackground />
+
       <Suspense fallback={<div className="fixed inset-0 bg-background flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div></div>}>
         <ParticlesBackground />
       </Suspense>
@@ -169,7 +190,7 @@ const CreativeWork: React.FC = () => {
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.8, opacity: 0 }}
-            className="relative max-w-6xl w-full"
+            className="relative w-full h-full max-w-[95vw] max-h-[95vh] flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
@@ -186,31 +207,31 @@ const CreativeWork: React.FC = () => {
             <Button
               variant="ghost"
               size="icon"
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 text-foreground hover:text-primary"
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-foreground hover:text-primary z-10"
               onClick={() => navigateLightbox('prev')}
             >
-              <ChevronLeft className="w-8 h-8" />
+              <ChevronLeft className="w-10 h-10" />
             </Button>
             <Button
               variant="ghost"
               size="icon"
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 text-foreground hover:text-primary"
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-foreground hover:text-primary z-10"
               onClick={() => navigateLightbox('next')}
             >
-              <ChevronRight className="w-8 h-8" />
+              <ChevronRight className="w-10 h-10" />
             </Button>
 
             {/* Image */}
-            <div className="relative rounded-lg overflow-hidden border-2 border-primary/50 shadow-2xl">
+            <div className="relative rounded-lg overflow-hidden border-2 border-primary/50 shadow-2xl flex-1 flex items-center justify-center bg-background/50">
               <img
                 src={lightboxImage.imageUrl}
                 alt={lightboxImage.title}
-                className="w-full h-auto object-contain max-h-[80vh]"
+                className="max-w-full max-h-[calc(95vh-140px)] object-contain"
               />
             </div>
 
             {/* Info & Actions */}
-            <div className="mt-6 flex items-center justify-between">
+            <div className="mt-4 flex items-center justify-between flex-shrink-0">
               <div>
                 <h3 className="text-2xl font-bold text-foreground">{lightboxImage.title}</h3>
                 <p className="text-primary">{lightboxImage.category}</p>
