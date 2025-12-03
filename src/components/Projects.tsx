@@ -24,7 +24,8 @@ const projects = [
     ],
     icon: Brain,
     color: "from-purple-500 to-indigo-500",
-    impact: "Successfully implemented real-time emotion recognition with high accuracy"
+    impact: "Successfully implemented real-time emotion recognition with high accuracy",
+    githubUrl: "https://github.com/chandud1124/emotion_detection"
   },
   {
     title: "ResumeGenie – AI Resume Builder",
@@ -43,7 +44,8 @@ const projects = [
     ],
     icon: Bot,
     color: "from-purple-500 to-pink-500",
-    impact: "Successfully served users in creating professional resumes"
+    impact: "Successfully served users in creating professional resumes",
+    githubUrl: "https://github.com/chandud1124/resume_genie"
   },
   {
     title: "AutoVolt – Smart IoT Classroom Automation System",
@@ -63,7 +65,8 @@ const projects = [
     ],
     icon: Zap,
     color: "from-yellow-500 to-orange-500",
-    impact: "Reduced classroom energy consumption by 30%"
+    impact: "Reduced classroom energy consumption by 30%",
+    githubUrl: "https://github.com/chandud1124/AutoVolt"
   },
   {
     title: "AI Vision Attendance System",
@@ -84,7 +87,8 @@ const projects = [
     ],
     icon: Eye,
     color: "from-cyan-500 to-blue-500",
-    impact: "Reduced manual attendance effort by 80%"
+    impact: "Reduced manual attendance effort by 80%",
+    githubUrl: "https://github.com/chandud1124/aivision"
   }
 ];
 
@@ -177,7 +181,7 @@ const Projects = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button className="btn-hero">
+                <Button className="btn-hero" onClick={() => window.open('https://github.com/chandud1124', '_blank')}>
                   <ExternalLink className="w-5 h-5 mr-2" />
                   View All Projects
                 </Button>
@@ -314,7 +318,7 @@ const ProjectSection: React.FC<ProjectSectionProps> = ({
               <Button 
                 variant="outline" 
                 size="lg"
-                onClick={() => window.open('https://github.com/chandu-d', '_blank')}
+                onClick={() => window.open(project.githubUrl || 'https://github.com/chandud1124', '_blank')}
               >
                 <Github className="w-5 h-5 mr-2" />
                 View Code

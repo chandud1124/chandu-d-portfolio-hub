@@ -171,9 +171,10 @@ const Skills = () => {
                       <div className="skill-bar">
                         <motion.div 
                           className="skill-bar-fill"
-                          initial={{ width: 0 }}
-                          animate={isVisible ? { width: `${skill.level}%` } : {}}
-                          transition={{ duration: 1.5, delay: index * 0.1 + skillIndex * 0.05 }}
+                          initial={{ scaleX: 0 }}
+                          animate={isVisible ? { scaleX: skill.level / 100 } : {}}
+                          transition={{ duration: 2, delay: index * 0.1 + skillIndex * 0.05, ease: "easeOut" }}
+                          style={{ transformOrigin: 'left' }}
                         />
                       </div>
                     </motion.div>
