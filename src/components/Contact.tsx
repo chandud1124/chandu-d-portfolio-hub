@@ -131,13 +131,21 @@ const Contact = () => {
               </p>
               <div className="flex gap-4">
                 <motion.div whileHover={{ scale: 1.005 }} whileTap={{ scale: 0.95 }}>
-                  <Button variant="outline" size="sm">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => window.open('https://github.com/chandud1124', '_blank')}
+                  >
                     <Github className="w-4 h-4 mr-2" />
                     GitHub
                   </Button>
                 </motion.div>
                 <motion.div whileHover={{ scale: 1.005 }} whileTap={{ scale: 0.95 }}>
-                  <Button variant="outline" size="sm">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => window.open('https://www.linkedin.com/in/chandu-d', '_blank')}
+                  >
                     <Linkedin className="w-4 h-4 mr-2" />
                     LinkedIn
                   </Button>
