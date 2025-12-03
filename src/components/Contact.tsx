@@ -22,8 +22,8 @@ const Contact = () => {
     {
       icon: Linkedin,
       title: "LinkedIn",
-      value: "linkedin.com/in/chandu-d",
-      link: "https://linkedin.com/in/chandu-d"
+      value: "www.linkedin.com/in/chandu-d",
+      link: "https://www.linkedin.com/in/chandu-d"
     },
     {
       icon: Github,
