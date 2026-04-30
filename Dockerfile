@@ -23,7 +23,7 @@ RUN yarn build
 # -----------------------------
 # Stage 2 — runtime (NGINX)
 # -----------------------------
-FROM nginx:1.27-alpine AS runtime
+FROM nginx:1.29-alpine AS runtime
 
 # Hardened NGINX config tuned for SPAs
 COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
