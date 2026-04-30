@@ -1,164 +1,175 @@
-import { Briefcase, Calendar, MapPin, Award } from "lucide-react";
+import { Briefcase, Calendar, MapPin, Award, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+
+const experiences = [
+  {
+    title: "Cloud Intern",
+    company: "UptoSkills",
+    period: "Feb 2025 – May 2025",
+    location: "Remote",
+    type: "Internship",
+    description:
+      "Designed and deployed cloud-based applications using AWS EC2, S3, and Lambda. Architected serverless solutions for performance and cost. Automated workflows + infrastructure for scalable, reproducible deployments.",
+    technologies: ["AWS EC2", "S3", "Lambda", "IaC", "Cloud Architecture"],
+    current: true,
+    certificateLink:
+      "https://drive.google.com/file/d/13RfF9JTE1Gk6VSkLuXBZNJB6fTzT6-v6/view",
+  },
+  {
+    title: "Cloud Computing Intern",
+    company: "Tech Mindsparc Innovations",
+    period: "Sep 2024 – Dec 2024",
+    location: "Remote",
+    type: "Internship",
+    description:
+      "Managed multi-cloud deployments across AWS, Azure, and GCP. Implemented DevOps automation pipelines and performance optimization. Delivered cost-effective infrastructure for real-time workloads.",
+    technologies: ["AWS", "Azure", "GCP", "DevOps", "CI/CD"],
+    current: false,
+    certificateLink:
+      "https://drive.google.com/file/d/1xztf6uo85yuCiaMPLp9Tame95simGhVV/view",
+  },
+  {
+    title: "AI/ML Intern",
+    company: "Tech Mindsparc Innovations",
+    period: "Jun 2024 – Sep 2024",
+    location: "Remote",
+    type: "Internship",
+    description:
+      "Built and deployed ML models using Python and PyTorch. Worked on emotion analysis and predictive modeling. Conducted data preprocessing, model optimization, and performance evaluation.",
+    technologies: ["Python", "PyTorch", "ML", "Model Training", "Data Analysis"],
+    current: false,
+    certificateLink:
+      "https://drive.google.com/file/d/1KdywdSs0Xx3VIZJfCeQmjWy4zWP0tv9t/view",
+  },
+];
 
 const Experience = () => {
   const { ref, isVisible } = useScrollAnimation();
 
-  const experiences = [
-    {
-      title: "Cloud Intern",
-      company: "UptoSkills",
-      period: "Feb 2025 – May 2025",
-      location: "Remote",
-      type: "Internship",
-      description: "Designed and deployed cloud-based applications using AWS EC2, S3, and Lambda. Architected serverless solutions for optimized performance and cost reduction. Automated workflows and infrastructure for scalable deployment.",
-      technologies: ["AWS EC2", "S3", "Lambda", "Cloud Architecture"],
-      current: true,
-      certificate: "https://drive.google.com/file/d/13RfF9JTE1Gk6VSkLuXBZNJB6fTzT6-v6/preview",
-      certificateLink: "https://drive.google.com/file/d/13RfF9JTE1Gk6VSkLuXBZNJB6fTzT6-v6/view"
-    },
-    {
-      title: "Cloud Computing Intern",
-      company: "Tech Mindsparc Innovations",
-      period: "Sep 2024 – Dec 2024",
-      location: "Remote",
-      type: "Internship",
-      description: "Managed multi-cloud deployments across AWS, Azure, and GCP. Implemented DevOps automation pipelines and performance optimization. Delivered cost-effective infrastructure solutions for real-time workloads.",
-      technologies: ["AWS", "Azure", "GCP", "DevOps", "Cloud Services"],
-      current: false,
-      certificate: "https://drive.google.com/file/d/1xztf6uo85yuCiaMPLp9Tame95simGhVV/preview",
-      certificateLink: "https://drive.google.com/file/d/1xztf6uo85yuCiaMPLp9Tame95simGhVV/view"
-    },
-    {
-      title: "AI/ML Intern",
-      company: "Tech Mindsparc Innovations",
-      period: "Jun 2024 – Sep 2024",
-      location: "Remote",
-      type: "Internship",
-      description: "Built and deployed machine learning models using Python and PyTorch. Worked on emotion analysis and predictive modeling for AI applications. Conducted data preprocessing, model optimization, and performance evaluation.",
-      technologies: ["Python", "Machine Learning", "Model Training", "Data Analysis"],
-      current: false,
-      certificate: "https://drive.google.com/file/d/1KdywdSs0Xx3VIZJfCeQmjWy4zWP0tv9t/preview",
-      certificateLink: "https://drive.google.com/file/d/1KdywdSs0Xx3VIZJfCeQmjWy4zWP0tv9t/view"
-    }
-  ];
-
   return (
-    <section id="experience" className="section-container relative overflow-hidden">
-      {/* Parallax elements */}
-      <motion.div 
-        className="absolute top-10 right-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl"
-        animate={{ 
-          y: [0, 50, 0],
-          scale: [1, 1.1, 1]
-        }}
-        transition={{ 
-          repeat: Infinity, 
-          duration: 10
-        }}
+    <section
+      id="experience"
+      className="section-container relative overflow-hidden scroll-mt-20"
+    >
+      <div className="absolute inset-0 tech-grid opacity-25 pointer-events-none" />
+      <motion.div
+        className="absolute top-1/3 right-0 w-72 h-72 rounded-full blur-3xl opacity-20 pointer-events-none"
+        style={{ background: "radial-gradient(circle, #00E5FF, transparent)" }}
+        animate={{ y: [0, 30, 0] }}
+        transition={{ repeat: Infinity, duration: 12 }}
       />
 
-      <div className="max-container relative z-10" ref={ref}>
-        <motion.div 
-          className="mb-12"
+      <div className="max-container-wide relative z-10" ref={ref}>
+        <motion.div
+          className="text-center mb-12"
           initial={{ opacity: 0, y: -20 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
         >
-          <h2 className="text-3xl lg:text-4xl font-bold mb-6">Professional Experience</h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-primary to-primary-light rounded-full mx-auto"></div>
-          <p className="text-lg text-muted-foreground mt-6 max-w-2xl mx-auto">
-            Hands-on experience in cloud computing, full-stack development, and AI/ML implementation, 
-            delivering scalable solutions and driving technological innovation across diverse projects
+          <div className="section-heading inline-flex flex-col items-center">
+            <span className="label">// experience.log</span>
+            <h2>
+              The <span className="gradient-text">Journey</span>
+            </h2>
+            <div className="divider" />
+          </div>
+          <p className="text-base lg:text-lg text-muted-foreground mt-6 max-w-2xl mx-auto">
+            Hands-on roles across cloud engineering, DevOps automation, and applied AI.
           </p>
         </motion.div>
-        
-        <div className="space-y-8">
-          {experiences.map((exp, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, x: -50 }}
-              animate={isVisible ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ scale: 1.005 }}
-              className="tilt-card"
-            >
-              <div className="professional-card glass-card group">
-                <div className="flex items-start gap-4 mb-4">
-                  <motion.div 
-                    className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0"
-                    whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <Briefcase className="w-6 h-6 text-primary" />
-                  </motion.div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2 flex-wrap">
-                      <h3 className="font-semibold text-lg">{exp.title}</h3>
-                      {exp.current && (
-                        <motion.span 
-                          className="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 text-xs rounded-full font-medium"
-                          animate={{ scale: [1, 1.05, 1] }}
-                          transition={{ repeat: Infinity, duration: 2 }}
-                        >
-                          Current
-                        </motion.span>
-                      )}
-                    </div>
-                    <p className="font-medium text-primary mb-2">{exp.company}</p>
-                    <div className="flex flex-wrap gap-4 text-sm text-muted-foreground mb-3">
-                      <div className="flex items-center gap-1">
-                        <Calendar className="w-4 h-4" />
-                        {exp.period}
+
+        {/* Timeline */}
+        <div className="relative max-w-4xl mx-auto">
+          {/* Vertical rail */}
+          <div className="absolute left-4 sm:left-8 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-accent to-transparent" />
+
+          <div className="space-y-6">
+            {experiences.map((exp, idx) => (
+              <motion.div
+                key={`${exp.company}-${idx}`}
+                initial={{ opacity: 0, x: -30 }}
+                animate={isVisible ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.5, delay: idx * 0.12 }}
+                className="relative pl-12 sm:pl-20"
+              >
+                {/* Node */}
+                <div className="absolute left-0 sm:left-4 top-6 flex items-center justify-center">
+                  <span className="absolute w-5 h-5 rounded-full bg-primary/20 animate-ping" />
+                  <span className="relative w-3 h-3 rounded-full bg-primary border-2 border-background shadow-[0_0_12px_rgba(0,229,255,0.6)]" />
+                </div>
+
+                <motion.div
+                  whileHover={{ y: -3 }}
+                  className="professional-card p-5 sm:p-6 group"
+                >
+                  {/* Header */}
+                  <div className="flex items-start gap-4 flex-wrap">
+                    <motion.div
+                      className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0"
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.6 }}
+                    >
+                      <Briefcase className="w-5 h-5 text-primary" />
+                    </motion.div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap mb-1">
+                        <h3 className="font-bold text-lg group-hover:text-primary transition-colors">
+                          {exp.title}
+                        </h3>
+                        {exp.current && (
+                          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[10px] font-mono uppercase tracking-wider bg-green-500/15 text-green-400 border border-green-500/30">
+                            <span className="status-dot" />
+                            current
+                          </span>
+                        )}
+                        <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-md text-muted-foreground border border-border">
+                          {exp.type}
+                        </span>
                       </div>
-                      <div className="flex items-center gap-1">
-                        <MapPin className="w-4 h-4" />
-                        {exp.location}
+                      <p className="font-medium text-primary">{exp.company}</p>
+                      <div className="flex flex-wrap gap-3 text-xs text-muted-foreground mt-1.5 font-mono">
+                        <span className="flex items-center gap-1">
+                          <Calendar className="w-3.5 h-3.5" />
+                          {exp.period}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <MapPin className="w-3.5 h-3.5" />
+                          {exp.location}
+                        </span>
                       </div>
                     </div>
                   </div>
-                </div>
-                
-                <p className="text-muted-foreground mb-4 leading-relaxed">
-                  {exp.description}
-                </p>
-                
-                <div className="flex flex-wrap gap-2">
-                  {exp.technologies.map((tech, techIdx) => (
-                    <motion.span
-                      key={tech}
-                      className="px-3 py-1 bg-secondary text-secondary-foreground rounded-lg text-sm font-medium hover:bg-primary hover:text-primary-foreground transition-colors"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={isVisible ? { opacity: 1, scale: 1 } : {}}
-                      transition={{ delay: index * 0.1 + techIdx * 0.05 }}
-                      whileHover={{ scale: 1.005 }}
-                    >
-                      {tech}
-                    </motion.span>
-                  ))}
-                </div>
 
-                {exp.certificate && (
-                  <motion.div 
-                    className="mt-4 pt-4 border-t border-border"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={isVisible ? { opacity: 1, y: 0 } : {}}
-                    transition={{ delay: index * 0.1 + 0.3 }}
-                  >
-                    <motion.button
-                      onClick={() => window.open(exp.certificateLink || exp.certificate.replace('/preview', '/view'), '_blank')}
-                      className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 hover:bg-accent/20 text-accent rounded-lg text-sm font-medium transition-colors"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <Award className="w-4 h-4" />
-                      View Certificate
-                    </motion.button>
-                  </motion.div>
-                )}
-              </div>
-            </motion.div>
-          ))}
+                  <p className="text-sm text-muted-foreground leading-relaxed mt-4">
+                    {exp.description}
+                  </p>
+
+                  <div className="flex flex-wrap gap-1.5 mt-4">
+                    {exp.technologies.map((t) => (
+                      <span key={t} className="tech-badge text-[10px]">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+
+                  {exp.certificateLink && (
+                    <div className="mt-4 pt-4 border-t border-border">
+                      <a
+                        href={exp.certificateLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-xs font-mono text-accent hover:text-primary transition-colors group/link"
+                      >
+                        <Award className="w-3.5 h-3.5" />
+                        view certificate
+                        <ChevronRight className="w-3 h-3 group-hover/link:translate-x-1 transition-transform" />
+                      </a>
+                    </div>
+                  )}
+                </motion.div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -491,6 +491,16 @@
     width: max-content;
     animation: marquee 40s linear infinite;
   }
+
+  /* Focus ring (a11y) */
+  .focus-ring {
+    @apply outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-lg;
+  }
+
+  /* Section anchor offset - so fixed header doesn't overlap headings */
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
 }  /* End of @layer components */
 
 /* === KEYFRAMES === */
