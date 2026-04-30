@@ -1,194 +1,335 @@
-import { Linkedin, Download, MapPin } from "lucide-react";
+import { Download, Github, Linkedin, MapPin, ArrowRight, Terminal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import heroImage from "@/assets/chandu.jpeg";
 
+const ROLES = [
+  "Full-Stack + DevOps Engineer",
+  "Cloud-Native Developer",
+  "AWS | Docker | Terraform | CI/CD",
+  "Builder by Day. Operator by Night.",
+];
+
 const Hero = () => {
+  const [roleIdx, setRoleIdx] = useState(0);
   const [displayText, setDisplayText] = useState("");
-  const fullText = "Full-Stack MERN Developer | Cloud & IoT Enthusiast";
-  
+  const [isDeleting, setIsDeleting] = useState(false);
+
   useEffect(() => {
-    let currentIndex = 0;
-    const interval = setInterval(() => {
-      if (currentIndex <= fullText.length) {
-        setDisplayText(fullText.slice(0, currentIndex));
-        currentIndex++;
-      } else {
-        clearInterval(interval);
-      }
-    }, 50);
-    
-    return () => clearInterval(interval);
-  }, []);
+    const current = ROLES[roleIdx];
+    const speed = isDeleting ? 35 : 70;
+    const pauseEnd = 1800;
+    const pauseStart = 300;
+
+    const timeout = setTimeout(
+      () => {
+        if (!isDeleting && displayText === current) {
+          setTimeout(() => setIsDeleting(true), pauseEnd);
+        } else if (isDeleting && displayText === "") {
+          setIsDeleting(false);
+          setRoleIdx((i) => (i + 1) % ROLES.length);
+        } else {
+          setDisplayText((prev) =>
+            isDeleting ? current.slice(0, prev.length - 1) : current.slice(0, prev.length + 1)
+          );
+        }
+      },
+      displayText === "" && !isDeleting ? pauseStart : speed
+    );
+    return () => clearTimeout(timeout);
+  }, [displayText, isDeleting, roleIdx]);
+
+  const downloadResume = () => {
+    const link = document.createElement("a");
+    link.href = "/resume.pdf";
+    link.download = "Chandu_D_Resume.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const scrollToProjects = () => {
+    const el = document.getElementById("projects");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
-    <section className="section-container relative overflow-hidden">
-      {/* Subtle gradient background */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-background via-primary/3 to-secondary opacity-60" />
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
-      </div>
-      
-      <div className="max-container">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-          {/* Content */}
-          <motion.div 
-            className="flex-1 text-center lg:text-left"
-            initial={{ opacity: 0, y: 50 }}
+    <section id="home" className="relative min-h-screen flex items-center overflow-hidden pt-24 pb-16">
+      {/* Tech grid background */}
+      <div className="absolute inset-0 tech-grid opacity-60 pointer-events-none" />
+
+      {/* Floating orbs */}
+      <motion.div
+        className="absolute top-20 -left-40 w-[30rem] h-[30rem] rounded-full blur-3xl opacity-30 pointer-events-none"
+        style={{ background: "radial-gradient(circle, #00E5FF, transparent 70%)" }}
+        animate={{ x: [0, 40, 0], y: [0, -20, 0] }}
+        transition={{ repeat: Infinity, duration: 14, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute bottom-0 -right-40 w-[32rem] h-[32rem] rounded-full blur-3xl opacity-25 pointer-events-none"
+        style={{ background: "radial-gradient(circle, #A78BFA, transparent 70%)" }}
+        animate={{ x: [0, -40, 0], y: [0, 30, 0] }}
+        transition={{ repeat: Infinity, duration: 16, ease: "easeInOut" }}
+      />
+
+      <div className="max-container-wide w-full relative z-10">
+        <div className="grid lg:grid-cols-12 gap-12 items-center">
+          {/* Left Content */}
+          <motion.div
+            className="lg:col-span-7"
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            transition={{ duration: 0.8 }}
           >
-            <motion.div 
-              className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6 backdrop-blur-sm border border-primary/20"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
+            {/* Status + location */}
+            <motion.div
+              className="flex flex-wrap items-center gap-3 mb-7"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
             >
-              <MapPin className="w-4 h-4" />
-              Bengaluru, Karnataka
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-card text-xs font-medium">
+                <span className="status-dot" />
+                <span>Available for Full-Time & Contract Roles</span>
+              </div>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-card text-xs font-medium text-muted-foreground">
+                <MapPin className="w-3 h-3" />
+                <span>Bengaluru, India · Remote-Ready</span>
+              </div>
             </motion.div>
-            
-            <motion.h1 
-              className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
+
+            {/* Intro */}
+            <motion.p
+              className="font-mono text-sm text-primary mb-3"
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.25 }}
+            >
+              &gt; Hello_World.init()
+            </motion.p>
+
+            {/* Name */}
+            <motion.h1
+              className="text-5xl sm:text-6xl lg:text-7xl font-extrabold mb-4 leading-[1.05] tracking-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              role="heading"
-              aria-level={1}
             >
-              Hi, I'm{" "}
-              <span className="gradient-text bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary-light animate-gradient">
-                Chandu D
-              </span>
+              I'm{" "}
+              <span className="gradient-text-hero">Chandu D</span>
             </motion.h1>
-            
-            <motion.div 
-              className="text-xl sm:text-2xl text-muted-foreground mb-6 font-medium h-8"
+
+            {/* Typewriter role */}
+            <motion.div
+              className="h-10 mb-6 text-xl sm:text-2xl lg:text-3xl font-semibold"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
+              transition={{ delay: 0.45 }}
             >
-              {displayText}<span className="animate-pulse">|</span>
+              <span className="font-mono text-muted-foreground">{'{ '}</span>
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+                {displayText}
+              </span>
+              <span className="animate-caret text-primary">|</span>
+              <span className="font-mono text-muted-foreground">{' }'}</span>
             </motion.div>
-            
-            <motion.p 
-              className="text-lg text-muted-foreground mb-8 max-w-2xl"
+
+            {/* Description */}
+            <motion.p
+              className="text-base sm:text-lg text-muted-foreground mb-8 max-w-2xl leading-relaxed"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
+              transition={{ delay: 0.6 }}
+            >
+              I design, build, and <span className="text-foreground font-medium">ship</span> production-grade
+              web applications — then automate their deployment and operations on{" "}
+              <span className="text-primary font-medium">AWS</span> with{" "}
+              <span className="text-accent font-medium">Docker</span>,{" "}
+              <span className="text-primary font-medium">Terraform</span>, and{" "}
+              <span className="text-accent font-medium">GitHub Actions</span>.
+              Full-stack velocity meets DevOps rigor.
+            </motion.p>
+
+            {/* Stats */}
+            <motion.div
+              className="grid grid-cols-3 gap-4 mb-8 max-w-lg"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7 }}
             >
-              Results-driven MERN Developer and Cloud & IoT Enthusiast, passionate about building intelligent, scalable, and impactful digital solutions.
-              Currently pursuing a Master's in Computer Applications (MCA), I specialize in full-stack web development, cloud computing, and IoT-based automation systems.
-            </motion.p>
-            
-            {/* Quick Response Section */}
-            <motion.div 
-              className="bg-card/50 backdrop-blur-sm border border-primary/10 rounded-xl p-4 mb-8 max-w-md"
+              {[
+                { value: "20+", label: "Projects" },
+                { value: "9+", label: "Certifications" },
+                { value: "3", label: "Clouds (AWS/Azure/GCP)" },
+              ].map((s) => (
+                <div key={s.label} className="glass-card p-3 text-center">
+                  <div className="text-xl sm:text-2xl font-bold gradient-text">{s.value}</div>
+                  <div className="text-[10px] sm:text-xs text-muted-foreground mt-1 uppercase tracking-wider">
+                    {s.label}
+                  </div>
+                </div>
+              ))}
+            </motion.div>
+
+            {/* CTAs */}
+            <motion.div
+              className="flex flex-wrap items-center gap-3"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 }}
             >
-              <div className="flex items-center gap-2 mb-2">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                <span className="text-sm font-semibold text-green-600 dark:text-green-400">Quick Response</span>
-              </div>
-              <p className="text-sm text-muted-foreground mb-3">
-                I typically respond to messages within 24 hours. Looking forward to hearing from you!
-              </p>
-              <div className="flex gap-3">
-                <motion.a 
-                  href="https://github.com/chandud1124" 
-                  target="_blank" 
+              <motion.button onClick={scrollToProjects} whileHover={{ y: -2 }} whileTap={{ scale: 0.97 }} className="btn-hero">
+                <span>View My Work</span>
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </motion.button>
+              <motion.button onClick={downloadResume} whileHover={{ y: -2 }} whileTap={{ scale: 0.97 }} className="btn-outline-hero">
+                <Download className="w-4 h-4 mr-2" />
+                Download Resume
+              </motion.button>
+              <div className="flex items-center gap-2 ml-1">
+                <a
+                  href="https://github.com/chandud1124"
+                  target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs text-primary hover:text-primary-dark transition-colors flex items-center gap-1"
-                  whileHover={{ scale: 1.05 }}
+                  aria-label="GitHub"
+                  className="w-10 h-10 rounded-lg glass-card flex items-center justify-center hover:text-primary transition-colors"
                 >
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                  </svg>
-                  GitHub
-                </motion.a>
-                <motion.a 
-                  href="https://www.linkedin.com/in/chandu-d" 
-                  target="_blank" 
+                  <Github className="w-4 h-4" />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/chandu-d"
+                  target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs text-primary hover:text-primary-dark transition-colors flex items-center gap-1"
-                  whileHover={{ scale: 1.05 }}
+                  aria-label="LinkedIn"
+                  className="w-10 h-10 rounded-lg glass-card flex items-center justify-center hover:text-primary transition-colors"
                 >
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                  </svg>
-                  LinkedIn
-                </motion.a>
+                  <Linkedin className="w-4 h-4" />
+                </a>
               </div>
-            </motion.div>
-            
-            <motion.div 
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9 }}
-            >
-              <motion.div whileHover={{ scale: 1.005 }} whileTap={{ scale: 0.95 }}>
-                <Button 
-                  variant="outline" 
-                  className="btn-outline-hero group"
-                  onClick={() => {
-                    const link = document.createElement('a');
-                    link.href = '/resume.pdf';
-                    link.download = 'Chandu_D_Resume.pdf';
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                  }}
-                >
-                  <Download className="w-5 h-5 mr-2 group-hover:animate-bounce" />
-                  Download Resume
-                </Button>
-              </motion.div>
-              
-              <motion.div whileHover={{ scale: 1.005 }} whileTap={{ scale: 0.95 }}>
-                <Button 
-                  variant="ghost" 
-                  size="lg" 
-                  className="text-primary hover:text-primary-dark hover:bg-primary/10"
-                  onClick={() => window.open('https://www.linkedin.com/in/chandu-d', '_blank')}
-                >
-                  <Linkedin className="w-5 h-5 mr-2" />
-                  LinkedIn
-                </Button>
-              </motion.div>
             </motion.div>
           </motion.div>
-          
-          {/* Image with 3D effect */}
-          <motion.div 
-            className="flex-shrink-0"
-            initial={{ opacity: 0, scale: 0.8 }}
+
+          {/* Right: terminal + avatar */}
+          <motion.div
+            className="lg:col-span-5 flex flex-col items-center gap-6"
+            initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
           >
-            <motion.div 
-              className="relative group"
-              whileHover={{ scale: 1.005 }}
-              transition={{ type: "spring", stiffness: 300 }}
+            {/* Avatar */}
+            <motion.div
+              className="relative"
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 200 }}
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-accent/30 rounded-full blur-3xl scale-110 group-hover:scale-125 transition-transform duration-500"></div>
-              <div className="absolute inset-0 bg-gradient-to-br from-primary-light/20 to-accent/20 rounded-full blur-2xl animate-pulse"></div>
-              <div className="relative w-80 h-80 lg:w-96 lg:h-96 rounded-full border-8 border-card shadow-2xl ring-4 ring-primary/20 group-hover:ring-primary/40 transition-all duration-300 overflow-hidden">
+              {/* Rotating ring */}
+              <motion.div
+                className="absolute -inset-6 rounded-full opacity-40"
+                style={{
+                  background: "conic-gradient(from 0deg, #00E5FF, #A78BFA, #F472B6, #00E5FF)",
+                  filter: "blur(32px)",
+                }}
+                animate={{ rotate: 360 }}
+                transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+              />
+              <div className="relative w-56 h-56 lg:w-64 lg:h-64 rounded-full overflow-hidden border-2 border-primary/40 shadow-2xl">
                 <img
                   src={heroImage}
-                  alt="Chandu D - Professional Portrait"
+                  alt="Chandu D - Full-Stack + DevOps Engineer"
                   className="w-full h-full object-cover"
                   loading="eager"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/50 via-transparent to-transparent" />
+              </div>
+              {/* Floating badges around avatar */}
+              <motion.div
+                className="absolute -top-2 -right-4 tech-badge shadow-lg"
+                animate={{ y: [0, -8, 0] }}
+                transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+              >
+                AWS
+              </motion.div>
+              <motion.div
+                className="absolute -bottom-2 -left-4 tech-badge-accent shadow-lg"
+                animate={{ y: [0, 8, 0] }}
+                transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut" }}
+              >
+                Docker
+              </motion.div>
+              <motion.div
+                className="absolute top-1/2 -left-8 tech-badge shadow-lg"
+                animate={{ x: [0, -6, 0] }}
+                transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+              >
+                K8s
+              </motion.div>
+              <motion.div
+                className="absolute top-1/3 -right-8 tech-badge-accent shadow-lg"
+                animate={{ x: [0, 6, 0] }}
+                transition={{ repeat: Infinity, duration: 3.8, ease: "easeInOut" }}
+              >
+                Terraform
+              </motion.div>
+            </motion.div>
+
+            {/* Terminal window */}
+            <motion.div
+              className="terminal-window w-full max-w-md"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+            >
+              <div className="terminal-header">
+                <span className="terminal-dot bg-red-500/80" />
+                <span className="terminal-dot bg-yellow-500/80" />
+                <span className="terminal-dot bg-green-500/80" />
+                <div className="flex-1 text-center text-xs text-gray-400 font-mono">
+                  <Terminal className="w-3 h-3 inline mr-1" />
+                  chandu@portfolio ~ %
+                </div>
+              </div>
+              <div className="p-4 space-y-1.5 text-[13px] leading-relaxed">
+                <div><span className="text-green-400">$</span> <span className="text-gray-300">whoami</span></div>
+                <div className="text-cyan-300">&gt; Full-Stack + DevOps Engineer</div>
+                <div><span className="text-green-400">$</span> <span className="text-gray-300">cat stack.json</span></div>
+                <div className="pl-3 text-gray-300">
+                  <span className="text-purple-400">{'{'}</span>
+                </div>
+                <div className="pl-6 text-gray-400">
+                  <span className="text-cyan-300">"frontend"</span>: <span className="text-amber-300">"React, TS, Next"</span>,
+                </div>
+                <div className="pl-6 text-gray-400">
+                  <span className="text-cyan-300">"backend"</span>: <span className="text-amber-300">"Node, FastAPI"</span>,
+                </div>
+                <div className="pl-6 text-gray-400">
+                  <span className="text-cyan-300">"cloud"</span>: <span className="text-amber-300">"AWS, Docker, Terraform"</span>,
+                </div>
+                <div className="pl-6 text-gray-400">
+                  <span className="text-cyan-300">"cicd"</span>: <span className="text-amber-300">"GitHub Actions"</span>
+                </div>
+                <div className="pl-3 text-gray-300">
+                  <span className="text-purple-400">{'}'}</span>
+                </div>
+                <div className="flex items-center">
+                  <span className="text-green-400">$</span>
+                  <span className="ml-2 w-2 h-4 bg-cyan-400 animate-caret" />
+                </div>
               </div>
             </motion.div>
           </motion.div>
         </div>
       </div>
+
+      {/* Scroll hint */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-xs text-muted-foreground flex flex-col items-center gap-2 font-mono"
+        animate={{ y: [0, 8, 0] }}
+        transition={{ repeat: Infinity, duration: 2 }}
+      >
+        <span>scroll</span>
+        <div className="w-px h-8 bg-gradient-to-b from-primary to-transparent" />
+      </motion.div>
     </section>
   );
 };

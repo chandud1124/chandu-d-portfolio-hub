@@ -1,0 +1,45 @@
+# Local orchestration for the portfolio + (optional) API + MongoDB
+# Use for development/testing — production runs on AWS (see terraform/)
+version: "3.9"
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VITE_APP_VERSION: "dev"
+    image: chandu-portfolio:dev
+    container_name: chandu-portfolio
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost/healthz"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+    networks: [portfolio-net]
+
+  # Optional API service (FastAPI) — uncomment to run full stack locally
+  # backend:
+  #   build:
+  #     context: ./backend
+  #   container_name: chandu-portfolio-api
+  #   env_file: ./backend/.env
+  #   ports: ["8001:8001"]
+  #   depends_on: [mongo]
+  #   networks: [portfolio-net]
+  #
+  # mongo:
+  #   image: mongo:7
+  #   container_name: chandu-portfolio-mongo
+  #   volumes: [mongo-data:/data/db]
+  #   networks: [portfolio-net]
+
+networks:
+  portfolio-net:
+    driver: bridge
+
+# volumes:
+#   mongo-data:
