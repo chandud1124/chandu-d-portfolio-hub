@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, Suspense, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, Suspense, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion';
 import { Navigation, ParticlesBackground, Footer } from '@/components/lazy-components';
 import { X, Download, ZoomIn, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -90,6 +90,10 @@ const CreativeWork: React.FC = () => {
     target: containerRef,
     offset: ['start start', 'end end'],
   });
+
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, []);
 
   useEffect(() => {
     // Smooth scrolling without snap for better visibility

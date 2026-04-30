@@ -56,7 +56,7 @@ const About = () => {
   ];
 
   const stats = [
-    { icon: Layers, value: 20, suffix: "+", label: "Projects Shipped" },
+    { icon: Layers, value: 15, suffix: "+", label: "Projects Shipped" },
     { icon: Cloud, value: 3, suffix: "", label: "Clouds Deployed On" },
     { icon: GitBranch, value: 500, suffix: "+", label: "Commits / Year" },
     { icon: Activity, value: 99, suffix: ".9%", label: "Uptime Target" },

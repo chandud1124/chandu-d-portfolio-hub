@@ -104,7 +104,7 @@ const Navigation = () => {
             className="font-bold text-xl gradient-text bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary-light animate-gradient"
             whileHover={{ scale: 1.005 }}
           >
-            Chandu D
+            Chandu. D
           </motion.div>
 
           {/* Desktop Navigation */}

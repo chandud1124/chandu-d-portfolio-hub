@@ -13,7 +13,7 @@ const Footer = () => {
         <div className="grid md:grid-cols-3 gap-8 mb-10">
           {/* Brand */}
           <div>
-            <h3 className="text-2xl font-bold gradient-text mb-3">Chandu D</h3>
+            <h3 className="text-2xl font-bold gradient-text mb-3">Chandu. D</h3>
             <p className="text-sm text-muted-foreground leading-relaxed mb-4">
               Full-Stack + DevOps Engineer building and shipping cloud-native apps on AWS.
               Available for full-time & contract roles — India & global remote.
@@ -57,7 +57,6 @@ const Footer = () => {
                 { href: "#about", label: "About" },
                 { href: "#skills", label: "Skills" },
                 { href: "#projects", label: "Projects" },
-                { href: "#devops", label: "DevOps Practices" },
                 { href: "#certifications", label: "Certifications" },
               ].map((l) => (
                 <li key={l.href}>
@@ -91,8 +90,7 @@ const Footer = () => {
 
         <div className="pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-muted-foreground font-mono flex items-center gap-1.5">
-            © {new Date().getFullYear()} Chandu D. Crafted with{" "}
-            <Heart className="w-3 h-3 text-rose-500 fill-rose-500" /> · All rights reserved.
+            © {new Date().getFullYear()} Chandu. D Crafted with{" "} · All rights reserved.
           </p>
           <motion.button
             onClick={scrollTop}

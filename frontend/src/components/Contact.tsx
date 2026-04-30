@@ -9,8 +9,8 @@ const Contact = () => {
     {
       icon: Mail,
       label: "Email",
-      value: "chandud9966@gmail.com",
-      href: "mailto:chandud9966@gmail.com",
+      value: "chandu3548@gmail.com",
+      href: "mailto:chandu3548@gmail.com",
       kbd: "⌦ Compose",
     },
     {
@@ -163,7 +163,7 @@ const Contact = () => {
             </div>
 
             <motion.a
-              href="mailto:chandud9966@gmail.com?subject=Let's%20talk%20—%20Full-Stack%20%2B%20DevOps%20Engineer&body=Hi%20Chandu%2C%0A%0AI%20saw%20your%20portfolio%20and%20wanted%20to%20chat%20about%20..."
+              href="mailto:chandu3548@gmail.com?subject=Let's%20talk%20—%20Full-Stack%20%2B%20DevOps%20Engineer&body=Hi%20Chandu%2C%0A%0AI%20saw%20your%20portfolio%20and%20wanted%20to%20chat%20about%20..."
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.97 }}
               className="btn-hero w-full justify-center"

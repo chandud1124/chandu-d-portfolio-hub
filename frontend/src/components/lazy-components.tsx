@@ -8,7 +8,6 @@ const About = lazy(() => import('@/components/About'));
 const Skills = lazy(() => import('@/components/Skills'));
 const Experience = lazy(() => import('@/components/Experience'));
 const Projects = lazy(() => import('@/components/Projects'));
-const DevOpsPractices = lazy(() => import('@/components/DevOpsPractices'));
 const Certifications = lazy(() => import('@/components/Certifications'));
 const Contact = lazy(() => import('@/components/Contact'));
 const Footer = lazy(() => import('@/components/Footer'));
@@ -85,7 +84,6 @@ export {
   Skills,
   Experience,
   Projects,
-  DevOpsPractices,
   Certifications,
   Contact,
   Footer,

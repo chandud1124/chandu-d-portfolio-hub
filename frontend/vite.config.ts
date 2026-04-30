@@ -65,6 +65,10 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      "cytoscape/dist/cytoscape.umd.js": path.resolve(
+        __dirname,
+        "./node_modules/cytoscape/dist/cytoscape.umd.js"
+      ),
     },
   },
   build: {

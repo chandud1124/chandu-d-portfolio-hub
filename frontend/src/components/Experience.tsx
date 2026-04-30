@@ -4,6 +4,19 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const experiences = [
   {
+    title: "Full Stack & IoT Developer",
+    company: "AIMS Institutes",
+    period: "Jul 2025 – Nov 2025",
+    location: "Bengaluru, Karnataka, India",
+    type: "Internship",
+    description:
+      "Designed and deployed AutoVolt – Smart IoT Classroom Automation system for real-time device control using ESP32 microcontrollers and MQTT. Developed full-stack dashboard with React.js and Node.js for real-time monitoring of classroom lights, fans, and electrical devices. Implemented alpha testing and technical review; approved as deployment-ready by institute's technical committee. Gained hands-on experience in IoT systems, cloud-ready architecture, and collaborative project execution.",
+    technologies: ["React.js", "Node.js", "ESP32", "MQTT", "IoT", "Full-Stack"],
+    current: false,
+    certificateLink:
+      "https://drive.google.com/file/d/1_aims_certificate_link/view",
+  },
+  {
     title: "Cloud Intern",
     company: "UptoSkills",
     period: "Feb 2025 – May 2025",
@@ -12,7 +25,7 @@ const experiences = [
     description:
       "Designed and deployed cloud-based applications using AWS EC2, S3, and Lambda. Architected serverless solutions for performance and cost. Automated workflows + infrastructure for scalable, reproducible deployments.",
     technologies: ["AWS EC2", "S3", "Lambda", "IaC", "Cloud Architecture"],
-    current: true,
+    current: false,
     certificateLink:
       "https://drive.google.com/file/d/13RfF9JTE1Gk6VSkLuXBZNJB6fTzT6-v6/view",
   },
