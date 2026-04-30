@@ -1,0 +1,14 @@
+# Copy to terraform.tfvars and fill in
+
+aws_region        = "ap-south-1"
+project_name      = "chandu-portfolio"
+environment       = "prod"
+# domain_name       = "chandu.dev"          # leave commented for CloudFront default domain
+github_repository = "chandud9966-png/chandu-d-portfolio-hub"
+
+tags = {
+  Project   = "chandu-portfolio"
+  ManagedBy = "terraform"
+  Owner     = "chandu"
+  Env       = "prod"
+}
