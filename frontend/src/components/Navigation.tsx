@@ -5,6 +5,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ThemeToggle } from "./ThemeToggle";
 import { useNavigate, useLocation } from "react-router-dom";
 
+const navItems = [
+  { href: "#about", label: "About" },
+  { href: "#skills", label: "Skills" },
+  { href: "#experience", label: "Experience" },
+  { href: "#projects", label: "Projects" },
+  { href: "#education", label: "Education" },
+  { href: "#certifications", label: "Certifications" },
+  { href: "#contact", label: "Contact" },
+];
+
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -16,34 +26,21 @@ const Navigation = () => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
       
-      const sections = navItems.map(item => item.href.substring(1));
-      const currentSection = sections.find(section => {
-        const element = document.getElementById(section);
-        if (element) {
+      const currentSection = navItems
+        .map((item) => document.getElementById(item.href.substring(1)))
+        .filter((element): element is HTMLElement => element !== null)
+        .filter((element) => {
           const rect = element.getBoundingClientRect();
           return rect.top <= 100 && rect.bottom >= 100;
-        }
-        return false;
-      });
-      
-      if (currentSection) {
-        setActiveSection(currentSection);
-      }
+        })
+        .sort((a, b) => b.getBoundingClientRect().top - a.getBoundingClientRect().top)[0];
+
+      setActiveSection(currentSection?.id ?? "");
     };
     
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const navItems = [
-    { href: "#about", label: "About" },
-    { href: "#skills", label: "Skills" },
-    { href: "#experience", label: "Experience" },
-    { href: "#projects", label: "Projects" },
-    { href: "#devops", label: "DevOps" },
-    { href: "#certifications", label: "Certifications" },
-    { href: "#contact", label: "Contact" }
-  ];
 
   const scrollToSection = (href: string) => {
     // Check if it's a route change (starts with /)
@@ -90,7 +87,7 @@ const Navigation = () => {
     <motion.nav 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled 
-          ? 'bg-background/95 backdrop-blur-lg border-b border-border shadow-lg' 
+          ? 'bg-background/95 backdrop-blur-lg border-b border-border shadow-sm'
           : 'bg-transparent'
       }`}
       initial={{ y: -100 }}
@@ -100,15 +97,17 @@ const Navigation = () => {
       <div className="max-container">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <motion.div 
-            className="font-bold text-xl gradient-text bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary-light animate-gradient"
+          <motion.button
+            type="button"
+            onClick={() => scrollToSection("#home")}
+            className="whitespace-nowrap font-bold text-xl tracking-tight text-foreground"
             whileHover={{ scale: 1.005 }}
           >
-            Chandu. D
-          </motion.div>
+            Chandu D<span className="text-primary">.</span>
+          </motion.button>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden lg:flex items-center space-x-5 xl:space-x-7">
             {navItems.map((item) => {
               const isActive = activeSection === item.href.substring(1);
               return (
@@ -138,13 +137,14 @@ const Navigation = () => {
           </div>
 
           {/* Mobile menu button and theme toggle */}
-          <div className="flex items-center gap-2 md:hidden">
+          <div className="flex items-center gap-2 lg:hidden">
             <ThemeToggle />
             <motion.div whileTap={{ scale: 0.95 }}>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsOpen(!isOpen)}
+                aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
               >
                 <AnimatePresence mode="wait">
                   {isOpen ? (
@@ -178,7 +178,7 @@ const Navigation = () => {
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              className="md:hidden border-t border-border bg-background/95 backdrop-blur-lg"
+              className="lg:hidden border-t border-border bg-background/95 backdrop-blur-lg"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}

@@ -1,316 +1,117 @@
-import { LucideIcon } from "lucide-react";
-
 export type Project = {
   id: string;
   title: string;
   tagline: string;
   description: string;
-  problem: string;
-  solution: string;
   category: "Full-Stack" | "DevOps" | "AI/ML" | "IoT";
   technologies: string[];
   features: string[];
-  metrics: { label: string; value: string }[];
-  architecture: string;   // Mermaid source
+  architecture: string;
   githubUrl?: string;
   demoUrl?: string;
   image: string;
-  color: string;          // Tailwind gradient e.g. "from-cyan-500 to-blue-500"
+  color: string;
   iconName: string;
 };
 
 export const projects: Project[] = [
   {
-    id: "portfolio-aws",
-    title: "This Portfolio — Ship it on AWS",
-    tagline: "CI/CD, Docker, Terraform, S3 + CloudFront",
+    id: "farmnexus",
+    title: "FarmNexus",
+    tagline: "Smart hydroponics management system",
     description:
-      "This very portfolio ships via a fully automated GitOps pipeline. Every push to main triggers GitHub Actions: lint → typecheck → test → build → containerize → deploy static assets to AWS S3 and invalidate CloudFront — all provisioned with Terraform.",
-    problem:
-      "Deploying a modern React SPA the manual way is slow, error-prone, and insecure. There's no audit trail, no reproducibility, and rollbacks are painful.",
-    solution:
-      "A Terraform-managed AWS foundation (S3 + CloudFront + ACM + OIDC role for GitHub), a multi-stage Dockerfile for parity between local and CI, and a GitHub Actions pipeline with OIDC-federated AWS credentials. No long-lived secrets, fully reproducible, rollback in one click.",
-    category: "DevOps",
-    technologies: ["AWS S3", "CloudFront", "Terraform", "GitHub Actions", "Docker", "OIDC", "NGINX", "React", "Vite"],
-    features: [
-      "GitHub Actions CI/CD with matrix lint + test",
-      "Terraform-managed S3 + CloudFront + ACM",
-      "OIDC federation — zero long-lived AWS keys",
-      "Multi-stage Docker build for dev/prod parity",
-      "Automated CloudFront cache invalidation",
-      "PR preview strategy (ready for extension)",
-    ],
-    metrics: [
-      { label: "Deploy time", value: "~2 min" },
-      { label: "Global latency (p95)", value: "<100ms" },
-      { label: "Manual steps", value: "0" },
-      { label: "Long-lived secrets", value: "0" },
-    ],
-    architecture: `flowchart LR
-    Dev["👨‍💻 Developer\\nlocal commit"] -->|git push| GH["GitHub\\nRepository"]
-    GH -->|trigger| GA["GitHub Actions\\nCI/CD"]
-    subgraph CI ["Continuous Integration"]
-      GA --> Lint["Lint + Typecheck"]
-      Lint --> Test["Unit Tests"]
-      Test --> Build["Vite Build"]
-      Build --> Docker["Docker Image"]
-    end
-    subgraph CD ["Continuous Delivery"]
-      Docker -->|OIDC| AWS["AWS Account"]
-      AWS --> S3["S3 Bucket\\nstatic assets"]
-      AWS --> CF["CloudFront CDN\\n+ ACM TLS"]
-      CF --> Invalidate["Cache Invalidate"]
-    end
-    CF --> Users["🌐 End Users\\nGlobal"]
-    subgraph IaC ["Infrastructure as Code"]
-      TF["Terraform"] -.->|provision| S3
-      TF -.->|provision| CF
-      TF -.->|provision| AWS
-    end
-    classDef aws fill:#FF9900,stroke:#FF9900,color:#000
-    classDef ci fill:#2088FF,stroke:#2088FF,color:#fff
-    class S3,CF,AWS aws
-    class GA,Lint,Test,Build,Docker ci`,
-    githubUrl: "https://github.com/chandud9966-png/chandu-d-portfolio-hub",
-    demoUrl: "https://github.com/chandud9966-png/chandu-d-portfolio-hub",
-    image: "https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=1200&h=800&fit=crop",
-    color: "from-cyan-500 to-blue-500",
-    iconName: "Workflow",
-  },
-  {
-    id: "dockerized-mern",
-    title: "Dockerized MERN on AWS ECS",
-    tagline: "Production-ready MERN deployed on Fargate with Terraform",
-    description:
-      "A reference full-stack MERN deployment: containerized React frontend and Node/Express API, orchestrated by AWS ECS Fargate, with MongoDB Atlas, ALB, and Terraform-managed infrastructure. Zero-downtime deploys, auto-scaling, and full observability.",
-    problem:
-      "Most MERN apps run on a single EC2 and break at scale — no autoscaling, no HA, no rollback strategy, fragile secrets.",
-    solution:
-      "Split frontend and backend into Docker containers, push to ECR, run on ECS Fargate behind an Application Load Balancer, store secrets in AWS Secrets Manager, and provision the whole stack via Terraform modules. Rolling blue/green deploys via CodeDeploy.",
-    category: "DevOps",
-    technologies: ["React", "Node.js", "Express", "MongoDB Atlas", "Docker", "AWS ECR", "AWS ECS Fargate", "ALB", "Terraform", "Secrets Manager"],
-    features: [
-      "Multi-stage Docker builds (< 120MB images)",
-      "ECS Fargate — no servers to manage",
-      "Application Load Balancer with health checks",
-      "Auto-scaling based on CPU & request count",
-      "AWS Secrets Manager for env injection",
-      "Terraform modules reusable across environments",
-    ],
-    metrics: [
-      { label: "Cold deploy", value: "~5 min" },
-      { label: "Zero-downtime", value: "✓ blue/green" },
-      { label: "Image size", value: "~120 MB" },
-      { label: "Env parity", value: "100%" },
-    ],
-    architecture: `flowchart TB
-    Users["🌐 Users"] --> R53["Route 53"]
-    R53 --> ALB["Application Load Balancer"]
-    subgraph VPC ["AWS VPC"]
-      subgraph Public ["Public Subnet"]
-        ALB
-      end
-      subgraph Private ["Private Subnets"]
-        ALB --> FE["ECS Task: Frontend\\nReact + NGINX"]
-        ALB --> BE["ECS Task: Backend\\nNode + Express"]
-        FE --> BE
-      end
-    end
-    BE --> SM["Secrets Manager"]
-    BE --> Mongo["(MongoDB Atlas)"]
-    ECR["AWS ECR\\nContainer Registry"] -.->|image pull| FE
-    ECR -.->|image pull| BE
-    subgraph CICD ["GitHub Actions"]
-      Push["git push main"] --> BuildFE["Build FE image"]
-      Push --> BuildBE["Build BE image"]
-      BuildFE --> PushECR["Push to ECR"]
-      BuildBE --> PushECR
-      PushECR --> Deploy["ecs update-service"]
-    end
-    Deploy -.-> FE
-    Deploy -.-> BE
-    TF["Terraform"] -.->|IaC| VPC
-    TF -.->|IaC| ECR
-    classDef aws fill:#FF9900,stroke:#FF9900,color:#000
-    class ALB,ECR,SM,R53 aws`,
-    githubUrl: "https://github.com/chandud1124",
-    image: "https://images.unsplash.com/photo-1605745341112-85968b19335b?w=1200&h=800&fit=crop",
-    color: "from-orange-500 to-amber-500",
-    iconName: "Container",
-  },
-  {
-    id: "autovolt",
-    title: "AutoVolt — Smart IoT Classroom Automation",
-    tagline: "Full-stack MERN + ESP32 + MQTT with AI-driven energy optimization",
-    description:
-      "End-to-end IoT platform controlling classroom appliances in real time. ESP32 microcontrollers publish/subscribe over MQTT, a Node/Express backend brokers commands, and an intuitive React dashboard gives admins and users live control + telemetry.",
-    problem:
-      "Classroom electricity is wasted daily — lights and fans run in empty rooms, there's no visibility, and nothing ties occupancy to utility spend.",
-    solution:
-      "ESP32 relays controlled over MQTT (Mosquitto), live React dashboard with role-based auth (JWT), MongoDB for device state + history, Docker Compose for local stack, and a simple AI rule-engine that optimizes schedules by usage patterns.",
+      "A web dashboard for monitoring and managing hydroponic farming operations, with ESP32 sensors for environmental and water monitoring.",
     category: "IoT",
-    technologies: ["React", "Node.js", "Express", "MongoDB", "ESP32", "MQTT", "Mosquitto", "TailwindCSS", "Docker"],
+    technologies: ["React", "TypeScript", "Supabase", "ESP32", "MQTT", "Sensors"],
     features: [
-      "Real-time device control via MQTT",
-      "Role-based auth (admin/user) with JWT",
-      "Live telemetry dashboard + history",
-      "AI-driven scheduling & energy optimization",
-      "Dockerized stack for one-command deploy",
-      "Fail-safe offline mode on each ESP32",
-    ],
-    metrics: [
-      { label: "Energy saved", value: "~30%" },
-      { label: "Devices supported", value: "50+" },
-      { label: "Command latency", value: "<400ms" },
-      { label: "Uptime", value: "99.5%" },
+      "Monitors temperature, humidity, water levels, and nutrient-related parameters",
+      "Supports device management and crop operations",
+      "Includes irrigation scheduling and analytics",
     ],
     architecture: `flowchart LR
-    ESP["ESP32 Devices\\n(relays/sensors)"] <-->|MQTT| Broker["MQTT Broker\\nMosquitto"]
-    Broker <--> API["Node/Express API"]
-    User["👤 Admin / User"] --> UI["React Dashboard"]
-    UI <-->|REST + WS| API
-    API --> DB[("MongoDB")]
-    API --> AI["AI Rule-Engine\\nusage-aware scheduling"]
-    subgraph Docker ["Docker Compose (local/prod)"]
-      UI
-      API
-      Broker
-      DB
-      AI
-    end
-    classDef iot fill:#10B981,stroke:#10B981,color:#fff
-    classDef svc fill:#0EA5E9,stroke:#0EA5E9,color:#fff
-    class ESP,Broker iot
-    class UI,API,AI svc`,
-    githubUrl: "https://github.com/chandud1124/AutoVolt",
-    image: "https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?w=1200&h=800&fit=crop",
-    color: "from-yellow-500 to-orange-500",
-    iconName: "Zap",
+    Sensors["ESP32 Sensors"] -->|MQTT| Dashboard["React + TypeScript Dashboard"]
+    Dashboard --> Data["Supabase"]
+    Dashboard --> Devices["Device Management"]
+    Dashboard --> Crops["Crop Operations"]
+    Dashboard --> Irrigation["Irrigation Scheduling"]
+    Dashboard --> Analytics["Analytics"]`,
+    image: "https://images.unsplash.com/photo-1497250681960-ef046c08a56e?w=1200&h=800&fit=crop",
+    color: "from-emerald-500 to-teal-600",
+    iconName: "Sprout",
   },
   {
-    id: "ai-vision",
-    title: "AI Vision Attendance System",
-    tagline: "Face-recognition attendance with TensorFlow.js + WebRTC",
+    id: "territory-runner",
+    title: "Territory Runner",
+    tagline: "GPS geospatial fitness app",
     description:
-      "A browser-based attendance platform that uses TensorFlow.js and BlazeFace to recognize students in real time, with a secure Node/Express API for roll management, sessions, and reports.",
-    problem:
-      "Manual attendance wastes ~10 minutes per class, is prone to proxy fraud, and gives no data insight.",
-    solution:
-      "In-browser face detection (no server round-trip), WebRTC camera access, JWT-protected APIs, and a clean React dashboard that exports attendance as CSV/PDF. Lightweight and privacy-safe — frames never leave the client for recognition.",
-    category: "AI/ML",
-    technologies: ["React (TS)", "TensorFlow.js", "BlazeFace", "WebRTC", "Node.js", "Express", "TailwindCSS"],
+      "A full-stack fitness application that uses GPS-based territory tracking to support leaderboards, team competitions, and social feeds.",
+    category: "Full-Stack",
+    technologies: ["React", "TypeScript", "Node.js", "Express.js", "PostgreSQL", "Capacitor", "Google Analytics 4"],
     features: [
-      "In-browser face detection & recognition",
-      "WebRTC camera capture (no native app needed)",
-      "Role-based auth with JWT + bcrypt",
-      "CRUD for students, classes, sessions",
-      "Attendance export to CSV / PDF",
-      "Zero frames sent to server (privacy-first)",
-    ],
-    metrics: [
-      { label: "Manual effort saved", value: "~80%" },
-      { label: "Recognition time", value: "<200ms" },
-      { label: "Accuracy", value: "~95%" },
-      { label: "Privacy", value: "on-device" },
+      "Tracks territories using GPS and the Haversine formula",
+      "Supports leaderboards, team competitions, and social feeds",
+      "Packages the application for Android with Capacitor",
+      "Uses Google Analytics 4 for event tracking",
     ],
     architecture: `flowchart LR
-    Cam["📷 Camera\\n(WebRTC)"] --> Browser["React SPA"]
-    Browser --> TF["TensorFlow.js\\n+ BlazeFace"]
-    TF -->|embeddings| Match["On-device\\nMatcher"]
-    Match -->|attendance event| API["Node/Express API"]
-    Browser -->|login/JWT| API
-    API --> DB[("Database")]
-    API --> Export["CSV / PDF\\nReports"]
-    classDef client fill:#A78BFA,stroke:#A78BFA,color:#fff
-    classDef server fill:#0EA5E9,stroke:#0EA5E9,color:#fff
-    class Cam,Browser,TF,Match client
-    class API,DB,Export server`,
-    githubUrl: "https://github.com/chandud1124/aivision",
-    image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200&h=800&fit=crop",
-    color: "from-cyan-500 to-blue-500",
-    iconName: "Eye",
+    Runner["Runner"] --> App["React + TypeScript App"]
+    App --> GPS["GPS Location"]
+    GPS --> Territory["Haversine Territory Tracking"]
+    App --> API["Node.js + Express API"]
+    API --> DB[("PostgreSQL")]
+    API --> Social["Leaderboards, Teams, Social Feeds"]
+    App --> Android["Capacitor Android Package"]
+    App --> Analytics["Google Analytics 4"]`,
+    image: "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=1200&h=800&fit=crop",
+    color: "from-blue-500 to-indigo-600",
+    iconName: "Map",
   },
   {
     id: "resume-genie",
-    title: "ResumeGenie — AI Resume Builder",
-    tagline: "MERN + Gemini AI — build, optimize, and chat your resume into shape",
+    title: "Resume Genie",
+    tagline: "AI-assisted resume builder",
     description:
-      "A full-stack MERN app for crafting professional resumes, augmented with an AI chatbot (Gemini) that helps users refine content, tailor for roles, and keep ATS-friendly formatting.",
-    problem:
-      "Resumes are hard to write, easy to get wrong, and even harder to tailor per role. Most builders are rigid templates with no intelligent guidance.",
-    solution:
-      "Interactive editor with multiple templates, an AI chatbot for section-by-section suggestions, real-time preview, and export to PDF. Auth, versioning, and resume history stored in MongoDB.",
+      "A full-stack resume-building application with AI-assisted resume generation through the Gemini API.",
     category: "Full-Stack",
-    technologies: ["React", "Node.js", "Express", "MongoDB", "Gemini AI", "TailwindCSS", "JWT"],
+    technologies: ["React.js", "Node.js", "MongoDB Atlas", "JWT", "Gemini API", "Vercel", "REST APIs"],
     features: [
-      "Multiple professional, ATS-friendly templates",
-      "AI chatbot for section-level guidance",
-      "Real-time preview + autosave",
-      "Role-based tailoring (JD → targeted resume)",
-      "One-click PDF export",
-      "Resume version history",
-    ],
-    metrics: [
-      { label: "Templates", value: "10+" },
-      { label: "Avg edit time", value: "↓ 60%" },
-      { label: "AI latency", value: "<2s" },
-      { label: "ATS compatible", value: "✓" },
+      "Creates and manages resume content",
+      "Uses the Gemini API for AI-assisted generation",
+      "Includes backend APIs for application features",
+      "Deployed on Vercel",
     ],
     architecture: `flowchart LR
-    User["👤 User"] --> UI["React Frontend"]
-    UI -->|REST + JWT| API["Node/Express API"]
-    API --> DB[("MongoDB")]
-    API --> Gemini["Google Gemini AI"]
-    API --> PDF["PDF Generator"]
-    UI -->|Live preview| UI
-    Gemini -.->|suggestions| API
-    classDef svc fill:#0EA5E9,stroke:#0EA5E9,color:#fff
-    classDef ai fill:#A78BFA,stroke:#A78BFA,color:#fff
-    class UI,API,DB,PDF svc
-    class Gemini ai`,
+    User["User"] --> UI["React.js Frontend"]
+    UI -->|REST APIs| API["Node.js Backend"]
+    API --> DB[("MongoDB Atlas")]
+    API --> Gemini["Gemini API"]
+    API --> Auth["JWT Authentication"]`,
     githubUrl: "https://github.com/chandud1124/resume_genie",
     image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=1200&h=800&fit=crop",
-    color: "from-purple-500 to-pink-500",
-    iconName: "Bot",
+    color: "from-violet-500 to-blue-600",
+    iconName: "FileText",
   },
   {
-    id: "emotion-detection",
-    title: "Live Emotion Detection System",
-    tagline: "Real-time emotion recognition with YOLOv8 + DeepFace",
+    id: "digital-event",
+    title: "Digital Event & Wedding Invitation Platform",
+    tagline: "Responsive event websites for a client project",
     description:
-      "An AI-powered pipeline that detects faces in a live video feed with YOLOv8 and classifies emotions with DeepFace in real time. Privacy-first: nothing stored, everything computed on the local machine.",
-    problem:
-      "Emotion analytics tools are either cloud-bound (privacy risk) or heavyweight and hard to run live.",
-    solution:
-      "Local Python pipeline — YOLOv8 detects faces, DeepFace classifies, OpenCV overlays results on the live feed. Pluggable camera sources and console logging; no storage.",
-    category: "AI/ML",
-    technologies: ["Python 3.13", "OpenCV", "YOLOv8", "DeepFace", "PyTorch", "NumPy"],
+      "A responsive digital invitation and event website built for a client, with a mobile-first experience and a Vercel deployment workflow.",
+    category: "Full-Stack",
+    technologies: ["React.js", "TypeScript", "Vite", "shadcn/ui", "Tailwind CSS", "Vercel"],
     features: [
-      "YOLOv8 real-time face detection",
-      "DeepFace emotion classification",
-      "Live video overlay",
-      "Multi-camera support",
-      "Console event logging",
-      "No persistent storage (privacy-safe)",
-    ],
-    metrics: [
-      { label: "FPS", value: "25+" },
-      { label: "Emotions", value: "7 classes" },
-      { label: "Latency", value: "<80ms" },
-      { label: "Privacy", value: "local-only" },
+      "Responsive, mobile-first invitation website",
+      "Built with React.js, TypeScript, and Vite",
+      "Customized UI using shadcn/ui and Tailwind CSS",
+      "Configured Vercel deployment",
     ],
     architecture: `flowchart LR
-    Cam["📷 Webcam / IP Cam"] --> CV["OpenCV Capture"]
-    CV --> YOLO["YOLOv8\\nFace Detection"]
-    YOLO --> DF["DeepFace\\nEmotion Classifier"]
-    DF --> Overlay["OpenCV Overlay"]
-    Overlay --> Screen["Live Preview"]
-    DF --> Log["Console Logger"]
-    classDef ml fill:#A78BFA,stroke:#A78BFA,color:#fff
-    class YOLO,DF ml`,
-    githubUrl: "https://github.com/chandud1124/emotion_detection",
-    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=800&fit=crop",
-    color: "from-violet-500 to-indigo-500",
-    iconName: "Brain",
+    Visitor["Visitor"] --> Site["React + TypeScript Website"]
+    Site --> UI["shadcn/ui + Tailwind CSS"]
+    Site --> Build["Vite"]
+    Build --> Deploy["Vercel Deployment"]`,
+    image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&h=800&fit=crop",
+    color: "from-rose-500 to-orange-500",
+    iconName: "CalendarDays",
   },
 ];

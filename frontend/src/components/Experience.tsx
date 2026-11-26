@@ -1,59 +1,80 @@
-import { Briefcase, Calendar, MapPin, Award, ChevronRight } from "lucide-react";
+import { BriefcaseBusiness, CalendarDays, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const experiences = [
   {
-    title: "Full Stack & IoT Developer",
+    title: "Technical Lead",
+    company: "MANAS360 Mental Wellness Pvt. Ltd.",
+    period: "Feb – Apr 2026",
+    location: "Bengaluru",
+    type: "Technical lead",
+    summary:
+      "Led full-stack development of a SaaS mental wellness platform, contributing to its architecture, module design, and technical implementation.",
+    contributions: [
+      "Built authentication, role-based access, and core product modules with React, Node.js, and PostgreSQL.",
+      "Designed REST APIs connecting the frontend, backend services, and PostgreSQL data storage.",
+      "Worked on cloud deployment and application configuration for production readiness.",
+      "Partnered with the Founder & CEO on requirements, sprint planning, technical decisions, and feature delivery.",
+    ],
+    technologies: ["React.js", "Node.js", "PostgreSQL", "REST APIs", "JWT", "Cloud Deployment"],
+  },
+  {
+    title: "Full Stack & IoT Developer Intern",
     company: "AIMS Institutes",
-    period: "Jul 2025 – Nov 2025",
-    location: "Bengaluru, Karnataka, India",
+    period: "Jul – Nov 2025",
+    location: "Remote · Bengaluru",
     type: "Internship",
-    description:
-      "Designed and deployed AutoVolt – Smart IoT Classroom Automation system for real-time device control using ESP32 microcontrollers and MQTT. Developed full-stack dashboard with React.js and Node.js for real-time monitoring of classroom lights, fans, and electrical devices. Implemented alpha testing and technical review; approved as deployment-ready by institute's technical committee. Gained hands-on experience in IoT systems, cloud-ready architecture, and collaborative project execution.",
-    technologies: ["React.js", "Node.js", "ESP32", "MQTT", "IoT", "Full-Stack"],
-    current: false,
-    certificateLink:
-      "https://drive.google.com/file/d/1_aims_certificate_link/view",
+    summary:
+      "Developed AutoVolt, an institute-approved classroom automation platform controlling 100+ devices across 10+ classrooms.",
+    contributions: [
+      "Built a React and Node.js application with REST APIs, MongoDB, and JWT-secured role-based access.",
+      "Connected the dashboard and backend control services to ESP32 devices over MQTT.",
+      "Applied Git, CI/CD fundamentals, and structured testing to deliver a production-ready system.",
+    ],
+    technologies: ["React.js", "Node.js", "MongoDB", "ESP32", "MQTT", "JWT", "CI/CD"],
   },
   {
-    title: "Cloud Intern",
+    title: "Cloud Application Developer",
     company: "UptoSkills",
-    period: "Feb 2025 – May 2025",
+    period: "Feb – May 2025",
     location: "Remote",
     type: "Internship",
-    description:
-      "Designed and deployed cloud-based applications using AWS EC2, S3, and Lambda. Architected serverless solutions for performance and cost. Automated workflows + infrastructure for scalable, reproducible deployments.",
-    technologies: ["AWS EC2", "S3", "Lambda", "IaC", "Cloud Architecture"],
-    current: false,
-    certificateLink:
-      "https://drive.google.com/file/d/13RfF9JTE1Gk6VSkLuXBZNJB6fTzT6-v6/view",
+    summary:
+      "Deployed three cloud-based applications on AWS and worked with core cloud services and operational practices.",
+    contributions: [
+      "Used scripted configuration to reduce manual infrastructure setup time by approximately 40%.",
+      "Configured S3 buckets and IAM policies to apply least-privilege access.",
+      "Implemented Lambda workflows for background processing and worked with monitoring and performance optimisation.",
+    ],
+    technologies: ["AWS EC2", "Amazon S3", "AWS Lambda", "IAM", "CI/CD"],
   },
   {
-    title: "Cloud Computing Intern",
+    title: "Cloud Infrastructure Developer",
     company: "Tech Mindsparc Innovations",
-    period: "Sep 2024 – Dec 2024",
+    period: "Sep – Dec 2024",
     location: "Remote",
     type: "Internship",
-    description:
-      "Managed multi-cloud deployments across AWS, Azure, and GCP. Implemented DevOps automation pipelines and performance optimization. Delivered cost-effective infrastructure for real-time workloads.",
-    technologies: ["AWS", "Azure", "GCP", "DevOps", "CI/CD"],
-    current: false,
-    certificateLink:
-      "https://drive.google.com/file/d/1xztf6uo85yuCiaMPLp9Tame95simGhVV/view",
+    summary:
+      "Completed 10+ cloud labs across AWS, Microsoft Azure, and Google Cloud Platform.",
+    contributions: [
+      "Practised cloud environment configuration, access management, and resource provisioning.",
+      "Explored automation fundamentals using Docker, GitHub, and DevOps workflows.",
+    ],
+    technologies: ["AWS", "Microsoft Azure", "Google Cloud", "Docker", "GitHub"],
   },
   {
-    title: "AI/ML Intern",
+    title: "AI/ML Developer",
     company: "Tech Mindsparc Innovations",
-    period: "Jun 2024 – Sep 2024",
+    period: "Jun – Sep 2024",
     location: "Remote",
     type: "Internship",
-    description:
-      "Built and deployed ML models using Python and PyTorch. Worked on emotion analysis and predictive modeling. Conducted data preprocessing, model optimization, and performance evaluation.",
-    technologies: ["Python", "PyTorch", "ML", "Model Training", "Data Analysis"],
-    current: false,
-    certificateLink:
-      "https://drive.google.com/file/d/1KdywdSs0Xx3VIZJfCeQmjWy4zWP0tv9t/view",
+    summary:
+      "Built two Python-based machine learning models for emotion analysis.",
+    contributions: [
+      "Preprocessed data and performed exploratory analysis on datasets containing 1,000+ records.",
+    ],
+    technologies: ["Python", "Machine Learning", "Data Preprocessing", "EDA"],
   },
 ];
 
@@ -61,126 +82,72 @@ const Experience = () => {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
-    <section
-      id="experience"
-      className="section-container relative overflow-hidden scroll-mt-20"
-    >
-      <div className="absolute inset-0 tech-grid opacity-25 pointer-events-none" />
-      <motion.div
-        className="absolute top-1/3 right-0 w-72 h-72 rounded-full blur-3xl opacity-20 pointer-events-none"
-        style={{ background: "radial-gradient(circle, #00E5FF, transparent)" }}
-        animate={{ y: [0, 30, 0] }}
-        transition={{ repeat: Infinity, duration: 12 }}
-      />
-
+    <section id="experience" className="section-container relative overflow-hidden">
       <div className="max-container-wide relative z-10" ref={ref}>
         <motion.div
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: -20 }}
+          className="max-w-2xl"
+          initial={{ opacity: 0, y: 16 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
         >
-          <div className="section-heading inline-flex flex-col items-center">
-            <span className="label">// experience.log</span>
-            <h2>
-              The <span className="gradient-text">Journey</span>
-            </h2>
-            <div className="divider" />
-          </div>
-          <p className="text-base lg:text-lg text-muted-foreground mt-6 max-w-2xl mx-auto">
-            Hands-on roles across cloud engineering, DevOps automation, and applied AI.
+          <p className="eyebrow">Experience</p>
+          <h2 className="section-title">Work grounded in delivery.</h2>
+          <p className="mt-4 text-base leading-7 text-muted-foreground">
+            Product engineering, cloud deployments, and applied technology across internships and a technical lead role.
           </p>
         </motion.div>
 
-        {/* Timeline */}
-        <div className="relative max-w-4xl mx-auto">
-          {/* Vertical rail */}
-          <div className="absolute left-4 sm:left-8 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-accent to-transparent" />
-
-          <div className="space-y-6">
-            {experiences.map((exp, idx) => (
-              <motion.div
-                key={`${exp.company}-${idx}`}
-                initial={{ opacity: 0, x: -30 }}
+        <div className="relative mt-10 max-w-4xl">
+          <div className="absolute bottom-4 left-[1.05rem] top-4 w-px bg-border sm:left-[1.35rem]" />
+          <div className="space-y-5">
+            {experiences.map((experience, index) => (
+              <motion.article
+                key={`${experience.company}-${experience.title}`}
+                className="relative pl-12 sm:pl-16"
+                initial={{ opacity: 0, x: -12 }}
                 animate={isVisible ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.5, delay: idx * 0.12 }}
-                className="relative pl-12 sm:pl-20"
+                transition={{ duration: 0.4, delay: index * 0.06 }}
               >
-                {/* Node */}
-                <div className="absolute left-0 sm:left-4 top-6 flex items-center justify-center">
-                  <span className="absolute w-5 h-5 rounded-full bg-primary/20 animate-ping" />
-                  <span className="relative w-3 h-3 rounded-full bg-primary border-2 border-background shadow-[0_0_12px_rgba(0,229,255,0.6)]" />
-                </div>
-
-                <motion.div
-                  whileHover={{ y: -3 }}
-                  className="professional-card p-5 sm:p-6 group"
-                >
-                  {/* Header */}
-                  <div className="flex items-start gap-4 flex-wrap">
-                    <motion.div
-                      className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0"
-                      whileHover={{ rotate: 360 }}
-                      transition={{ duration: 0.6 }}
-                    >
-                      <Briefcase className="w-5 h-5 text-primary" />
-                    </motion.div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 flex-wrap mb-1">
-                        <h3 className="font-bold text-lg group-hover:text-primary transition-colors">
-                          {exp.title}
-                        </h3>
-                        {exp.current && (
-                          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[10px] font-mono uppercase tracking-wider bg-green-500/15 text-green-400 border border-green-500/30">
-                            <span className="status-dot" />
-                            current
-                          </span>
-                        )}
-                        <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-md text-muted-foreground border border-border">
-                          {exp.type}
-                        </span>
-                      </div>
-                      <p className="font-medium text-primary">{exp.company}</p>
-                      <div className="flex flex-wrap gap-3 text-xs text-muted-foreground mt-1.5 font-mono">
-                        <span className="flex items-center gap-1">
-                          <Calendar className="w-3.5 h-3.5" />
-                          {exp.period}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <MapPin className="w-3.5 h-3.5" />
-                          {exp.location}
-                        </span>
-                      </div>
+                <span className="absolute left-2 top-6 z-10 flex h-7 w-7 items-center justify-center rounded-full border border-primary/20 bg-background text-primary sm:left-2.5">
+                  <BriefcaseBusiness className="h-3.5 w-3.5" />
+                </span>
+                <div className="professional-card p-5 sm:p-6">
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">{experience.type}</p>
+                      <h3 className="mt-1 text-lg font-bold text-foreground sm:text-xl">{experience.title}</h3>
+                      <p className="mt-1 font-medium text-muted-foreground">{experience.company}</p>
+                    </div>
+                    <div className="space-y-1.5 text-xs text-muted-foreground">
+                      <p className="flex items-center gap-1.5">
+                        <CalendarDays className="h-3.5 w-3.5" />
+                        {experience.period}
+                      </p>
+                      <p className="flex items-center gap-1.5">
+                        <MapPin className="h-3.5 w-3.5" />
+                        {experience.location}
+                      </p>
                     </div>
                   </div>
 
-                  <p className="text-sm text-muted-foreground leading-relaxed mt-4">
-                    {exp.description}
-                  </p>
-
-                  <div className="flex flex-wrap gap-1.5 mt-4">
-                    {exp.technologies.map((t) => (
-                      <span key={t} className="tech-badge text-[10px]">
-                        {t}
+                  <p className="mt-4 text-sm leading-6 text-muted-foreground">{experience.summary}</p>
+                  <ul className="mt-3 space-y-2">
+                    {experience.contributions.map((contribution) => (
+                      <li key={contribution} className="flex gap-2 text-sm leading-6 text-muted-foreground">
+                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/70" />
+                        <span>{contribution}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {experience.technologies.map((technology) => (
+                      <span key={technology} className="skill-chip">
+                        {technology}
                       </span>
                     ))}
                   </div>
-
-                  {exp.certificateLink && (
-                    <div className="mt-4 pt-4 border-t border-border">
-                      <a
-                        href={exp.certificateLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-xs font-mono text-accent hover:text-primary transition-colors group/link"
-                      >
-                        <Award className="w-3.5 h-3.5" />
-                        view certificate
-                        <ChevronRight className="w-3 h-3 group-hover/link:translate-x-1 transition-transform" />
-                      </a>
-                    </div>
-                  )}
-                </motion.div>
-              </motion.div>
+                </div>
+              </motion.article>
             ))}
           </div>
         </div>

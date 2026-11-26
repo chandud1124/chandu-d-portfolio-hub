@@ -1,4 +1,4 @@
-import { X, Github, ExternalLink, CheckCircle2, Target, Lightbulb, BarChart3 } from "lucide-react";
+import { X, Github, ExternalLink, CheckCircle2, Workflow } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect } from "react";
 import type { Project } from "@/data/projects";
@@ -41,6 +41,9 @@ const ProjectModal = ({ project, onClose }: Props) => {
           <div className="relative min-h-full flex items-start justify-center p-4 sm:p-6 lg:p-10">
             <motion.div
               className="relative w-full max-w-5xl glass-card rounded-3xl overflow-hidden my-8 border-primary/20"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby={`project-title-${project.id}`}
               initial={{ opacity: 0, y: 40, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.98 }}
@@ -62,7 +65,7 @@ const ProjectModal = ({ project, onClose }: Props) => {
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
                   <span className="tech-badge-accent mb-3">{project.category}</span>
-                  <h3 className="text-2xl sm:text-4xl font-bold mt-3 leading-tight">{project.title}</h3>
+                  <h3 id={`project-title-${project.id}`} className="text-2xl sm:text-4xl font-bold mt-3 leading-tight">{project.title}</h3>
                   <p className="text-sm sm:text-base text-muted-foreground mt-2">{project.tagline}</p>
                 </div>
               </div>
@@ -72,42 +75,12 @@ const ProjectModal = ({ project, onClose }: Props) => {
                 {/* Description */}
                 <p className="text-muted-foreground leading-relaxed">{project.description}</p>
 
-                {/* Metrics */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                  {project.metrics.map((m) => (
-                    <div key={m.label} className="professional-card p-4 text-center">
-                      <div className="text-lg sm:text-2xl font-bold gradient-text font-mono">{m.value}</div>
-                      <div className="text-[10px] sm:text-xs uppercase tracking-wider text-muted-foreground mt-1">
-                        {m.label}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Problem / Solution */}
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="professional-card p-5">
-                    <div className="flex items-center gap-2 mb-3">
-                      <Target className="w-4 h-4 text-destructive" />
-                      <h4 className="font-semibold">Problem</h4>
-                    </div>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{project.problem}</p>
-                  </div>
-                  <div className="professional-card p-5">
-                    <div className="flex items-center gap-2 mb-3">
-                      <Lightbulb className="w-4 h-4 text-primary" />
-                      <h4 className="font-semibold">Solution</h4>
-                    </div>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{project.solution}</p>
-                  </div>
-                </div>
-
                 {/* Architecture */}
                 <div>
                   <div className="flex items-center gap-2 mb-4">
-                    <BarChart3 className="w-4 h-4 text-primary" />
+                    <Workflow className="w-4 h-4 text-primary" />
                     <h4 className="font-semibold">Architecture</h4>
-                    <span className="font-mono text-xs text-muted-foreground">// rendered live with Mermaid</span>
+                    <span className="text-xs text-muted-foreground">System overview</span>
                   </div>
                   <MermaidDiagram chart={project.architecture} id={`mmd-${project.id}`} />
                 </div>

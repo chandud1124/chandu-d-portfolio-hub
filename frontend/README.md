@@ -1,6 +1,6 @@
-# 🚀 Chandu D - Professional Portfolio
+# Chandu D — Full Stack Developer Portfolio
 
-A modern, high-performance portfolio website showcasing full-stack development expertise, built with cutting-edge technologies and best practices.
+A professional portfolio showcasing full stack, cloud, DevOps, and IoT work.
 
 [![React](https://img.shields.io/badge/React-18.3.1-blue.svg)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7.2-blue.svg)](https://www.typescriptlang.org/)
@@ -32,10 +32,8 @@ A modern, high-performance portfolio website showcasing full-stack development e
 - **Performance Monitoring** - Core Web Vitals tracking
 - **Error Tracking** - Real-time error reporting
 
-### 📧 Contact Features
-- **EmailJS Integration** - Functional contact form
-- **Form Validation** - Client-side validation
-- **Loading States** - Enhanced user feedback
+### 📬 Contact
+- **Direct contact links** - Email, phone, LinkedIn, GitHub, and portfolio website
 
 ## 🚀 Quick Start
 

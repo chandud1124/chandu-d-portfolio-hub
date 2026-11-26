@@ -1,4 +1,4 @@
-import { ArrowUpRight, Github, Workflow, Container, Zap, Eye, Bot, Brain, Palette } from "lucide-react";
+import { ArrowUpRight, Github, Workflow, Sprout, Map, FileText, CalendarDays, Palette } from "lucide-react";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useState } from "react";
@@ -8,10 +8,10 @@ import { projects, type Project } from "@/data/projects";
 import ProjectModal from "./ProjectModal";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  Workflow, Container, Zap, Eye, Bot, Brain,
+  Workflow, Sprout, Map, FileText, CalendarDays,
 };
 
-const CATEGORIES = ["All", "Full-Stack", "DevOps", "AI/ML", "IoT"] as const;
+const CATEGORIES = ["All", "Full-Stack", "IoT"] as const;
 
 const Projects = () => {
   const { ref, isVisible } = useScrollAnimation();
@@ -32,16 +32,14 @@ const Projects = () => {
           initial={{ opacity: 0, y: -20 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
         >
-          <div className="section-heading inline-flex flex-col items-center">
-            <span className="label">// featured.projects</span>
-            <h2>
-              Built. Shipped. <span className="gradient-text">Measured.</span>
+          <div className="max-w-3xl">
+            <p className="eyebrow">Selected projects</p>
+            <h2 className="section-title">
+              Thoughtful work, <span className="gradient-text">built to be useful.</span>
             </h2>
-            <div className="divider" />
           </div>
-          <p className="text-base lg:text-lg text-muted-foreground mt-6 max-w-2xl mx-auto">
-            Hybrid projects spanning full-stack development, cloud infrastructure, and applied AI —
-            each with a live architecture diagram.
+          <p className="text-base lg:text-lg text-muted-foreground mt-4 max-w-2xl">
+            A selection of applications and connected systems across product development, fitness, and IoT.
           </p>
         </motion.div>
 
@@ -93,7 +91,16 @@ const Projects = () => {
                 transition={{ duration: 0.5, delay: idx * 0.06 }}
                 whileHover={{ y: -6 }}
                 onClick={() => setActive(p)}
-                className="group relative rounded-2xl overflow-hidden cursor-pointer professional-card p-0 flex flex-col"
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    setActive(p);
+                  }
+                }}
+                role="button"
+                tabIndex={0}
+                aria-label={`View details for ${p.title}`}
+                className="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl p-0 text-left professional-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 {/* Image */}
                 <div className="relative aspect-[16/10] overflow-hidden">
@@ -140,7 +147,7 @@ const Projects = () => {
                   </div>
 
                   <div className="mt-auto flex items-center justify-between pt-3 border-t border-border">
-                    <span className="text-xs font-mono text-muted-foreground">View case study</span>
+                    <span className="text-xs font-medium text-muted-foreground">View project details</span>
                     <motion.div
                       className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors"
                       whileHover={{ rotate: 45 }}
@@ -164,7 +171,7 @@ const Projects = () => {
           <div className="glass-card max-w-3xl mx-auto p-6 sm:p-8 border-primary/20">
             <h3 className="text-xl font-bold mb-3">Want to see more?</h3>
             <p className="text-muted-foreground mb-5 text-sm sm:text-base">
-              Explore all my repositories on GitHub — or check out my creative & media work.
+              Explore more of my code on GitHub, or browse my creative and media work.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Button

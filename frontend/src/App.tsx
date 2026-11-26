@@ -8,7 +8,6 @@ import CreativeWork from "./pages/CreativeWork";
 import NotFound from "./pages/NotFound";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./components/ThemeProvider";
-import CustomCursorRocket from "./components/CustomCursorRocket";
 import { useAnalytics } from "./utils/analytics";
 import { useEffect } from "react";
 
@@ -30,7 +29,6 @@ const App = () => (
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <Toaster />
-            <CustomCursorRocket />
           <Sonner />
           <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
             <AnalyticsWrapper>

@@ -22,11 +22,11 @@ export default defineConfig(({ mode }) => ({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
       manifest: {
-        name: 'Chandu D - MERN Stack Developer Portfolio',
+        name: 'Chandu D - Full Stack Developer Portfolio',
         short_name: 'Chandu D',
-        description: 'Professional portfolio of Chandu D - MERN Stack Developer',
-        theme_color: '#1e40af',
-        background_color: '#ffffff',
+        description: 'Portfolio of Chandu D, a full stack developer working across cloud, DevOps, and IoT.',
+        theme_color: '#245be9',
+        background_color: '#f7f8fa',
         display: 'standalone',
         icons: [
           {
@@ -74,12 +74,17 @@ export default defineConfig(({ mode }) => ({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          // Separate vendor chunks for better caching
-          vendor: ['react', 'react-dom'],
-          ui: ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu'],
-          // Removed large three.js chunks - now using lightweight canvas
-        }
+        manualChunks(id) {
+          if (id.includes("/node_modules/react/") || id.includes("/node_modules/react-dom/")) {
+            return "vendor";
+          }
+          if (
+            id.includes("/node_modules/@radix-ui/react-dialog/") ||
+            id.includes("/node_modules/@radix-ui/react-dropdown-menu/")
+          ) {
+            return "ui";
+          }
+        },
       }
     },
     // Enable source maps for production debugging
